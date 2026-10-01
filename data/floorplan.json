@@ -1,0 +1,307 @@
+{
+  "_source": "references/floor-plan.pdf (Karta instalacyjna, Wiszące Ogrody, bud. 18, m. 19, piętro 2). The developer gives no dimensions: 'Wymiary do odczytu wyłącznie ze skali', so every length here is measured from the PDF vector paths against the scale bar.",
+  "_coords": "Plan coordinates are in PDF points in the displayed (rotated) page space: x grows to the right, y grows DOWN the page. scripts/build_shell.py converts them to metres with Blender X = (x - origin.x) * mm_per_pt / 1000 and Blender Y = (origin.y - y) * mm_per_pt / 1000, so plan-up is +Y.",
+  "scale": {
+    "scale_bar_ticks_pt": [932.64, 989.28, 1046.04, 1102.68],
+    "pt_per_m": 56.68,
+    "mm_per_pt": 17.6429,
+    "note": "Scale bar 0-3 m measures 170.04 pt, which gives 56.68 pt/m. Nominal 1:50 on A3 would be 56.69 pt/m, so the two agree within 0.02%."
+  },
+  "origin_pt": {
+    "x": 354.0,
+    "y": 643.0,
+    "note": "Inner south-west corner of the living room."
+  },
+  "heights_m": {
+    "ceiling": {
+      "value": 2.95,
+      "assumed": false,
+      "note": "Clear room height, confirmed by the owner (2026-10-02). Not printed on the plan."
+    },
+    "interior_door": {
+      "value": 2.1,
+      "assumed": false,
+      "note": "Plan label 90/210."
+    },
+    "entrance_door": {
+      "value": 2.2,
+      "assumed": false,
+      "note": "Plan label 105/220."
+    },
+    "window_head": {
+      "value": 2.2,
+      "assumed": true,
+      "note": "Not on the plan; NEEDS CONFIRMATION."
+    },
+    "living_window_head": {
+      "value": 2.3,
+      "assumed": false,
+      "note": "Living-room glazing head height, set by the owner (2026-10-02). The other windows keep window_head (2.20, assumed)."
+    },
+    "bedroom_window_sill": {
+      "value": 0.5,
+      "assumed": true,
+      "note": "Plan says 'parapet obniżony' (lowered sill) with a low radiator; the height is not given. NEEDS CONFIRMATION."
+    },
+    "balcony_floor_offset": {
+      "value": -0.05,
+      "assumed": true,
+      "note": "Balcony slab is usually a step below the interior floor; not on the plan."
+    },
+    "balcony_railing": {
+      "value": 1.1,
+      "assumed": true,
+      "note": "Standard minimum railing height."
+    },
+    "floor_above_grade": {
+      "value": 6.8,
+      "assumed": true,
+      "note": "2nd floor: ground floor raised ~0.3 m plus two storeys of ~3.25 m (2.95 m clear + slab). Not on the plan; only drives the view outside."
+    }
+  },
+  "orientation": {
+    "north_deg": 224.3,
+    "note": "Direction of true north in the Blender frame, degrees counter-clockwise from +X. Read from the compass rose on the developer's arrangement plan (Hossa, 'Propozycja aranzacji', flat 19): north points to the lower left of the drawing, so the balcony and the bedroom window face south-east (bearing ~134 deg).",
+    "latitude": 54.36,
+    "longitude": 18.52,
+    "location": "Gdansk, ul. Przytulna 1 (Wiszace Ogrody)"
+  },
+  "storey": {
+    "level": 2,
+    "note": "II pietro (2nd floor above the ground floor), per the developer plan."
+  },
+  "walls": [
+    {
+      "id": "W_party_west",
+      "type": "party",
+      "rect_pt": [342.5, 354.0, 262.0, 656.5]
+    },
+    {
+      "id": "W_ext_living_N",
+      "type": "exterior",
+      "rect_pt": [354.0, 569.0, 262.0, 286.2]
+    },
+    {
+      "id": "W_ext_bedroom_W",
+      "type": "exterior",
+      "rect_pt": [569.0, 589.4, 177.5, 286.2]
+    },
+    {
+      "id": "W_ext_bedroom_N",
+      "type": "exterior",
+      "rect_pt": [589.4, 762.0, 177.5, 198.6]
+    },
+    {
+      "id": "W_party_east",
+      "type": "party",
+      "rect_pt": [750.4, 762.0, 198.6, 656.5]
+    },
+    {
+      "id": "W_corridor_S",
+      "type": "corridor",
+      "rect_pt": [354.0, 750.4, 643.0, 656.5]
+    },
+    {
+      "id": "P_living_bedroom",
+      "type": "partition",
+      "rect_pt": [583.8, 589.4, 286.2, 473.5]
+    },
+    {
+      "id": "P_bedroom_S",
+      "type": "partition",
+      "rect_pt": [589.4, 750.4, 467.1, 473.5]
+    },
+    {
+      "id": "P_bath_W",
+      "type": "partition",
+      "rect_pt": [646.2, 654.0, 473.5, 643.0]
+    },
+    {
+      "id": "S_kitchen_shaft",
+      "type": "shaft",
+      "rect_pt": [354.0, 388.6, 602.5, 643.0],
+      "note": "Installation shaft: sewer stack, ventilation and the hood duct inlet."
+    },
+    {
+      "id": "S_bath_shaft",
+      "type": "shaft",
+      "rect_pt": [701.4, 750.4, 625.4, 643.0],
+      "note": "Installation shaft behind the washing machine and sink area."
+    }
+  ],
+  "openings": [
+    {
+      "id": "O_living_balcony",
+      "wall": "W_ext_living_N",
+      "kind": "window_door",
+      "axis": "x",
+      "span_pt": [385.3, 532.8],
+      "sill_m": 0.0,
+      "head": "living_window_head",
+      "parts_pt": [
+        {
+          "kind": "fixed",
+          "span": [385.3, 433.5]
+        },
+        {
+          "kind": "door_pair",
+          "span": [433.5, 532.8]
+        }
+      ],
+      "note": "2.60 m wide unit: a left fixed pane (~0.85 m) and a pair of inward-opening balcony doors (~0.84 m leaves). The plan doesn't say whether the fixed pane runs to the floor; it is modelled full height.",
+      "swing_dir": [0, -1]
+    },
+    {
+      "id": "O_bedroom_window",
+      "wall": "W_ext_bedroom_N",
+      "kind": "window",
+      "axis": "x",
+      "span_pt": [627.5, 712.6],
+      "sill": "bedroom_window_sill",
+      "head": "window_head",
+      "note": "1.50 m wide, lowered sill."
+    },
+    {
+      "id": "O_bedroom_balcony",
+      "wall": "W_ext_bedroom_W",
+      "kind": "door",
+      "axis": "y",
+      "span_pt": [214.6, 265.6],
+      "sill_m": 0.0,
+      "head": "window_head",
+      "hinge": "north",
+      "note": "~0.90 m balcony door from the bedroom.",
+      "swing_dir": [1, 0]
+    },
+    {
+      "id": "O_entrance",
+      "wall": "W_corridor_S",
+      "kind": "door",
+      "axis": "x",
+      "span_pt": [518.6, 578.2],
+      "sill_m": 0.0,
+      "head": "entrance_door",
+      "hinge": "east",
+      "note": "Label 105/220.",
+      "swing_dir": [0, 1]
+    },
+    {
+      "id": "O_bedroom_door",
+      "wall": "P_bedroom_S",
+      "kind": "door",
+      "axis": "x",
+      "span_pt": [592.2, 643.2],
+      "sill_m": 0.0,
+      "head": "interior_door",
+      "hinge": "west",
+      "note": "Label 90/210. The gap between the partition and the bath wall is 0.95 m, with a ~0.09 m jamb stub drawn on the left. Modelled as 0.90 m against the right side.",
+      "swing_dir": [0, 1]
+    },
+    {
+      "id": "O_bathroom_door",
+      "wall": "P_bath_W",
+      "kind": "door",
+      "axis": "y",
+      "span_pt": [533.0, 584.0],
+      "sill_m": 0.0,
+      "head": "interior_door",
+      "hinge": "south",
+      "note": "Label 90/210; the swing is drawn into the hall.",
+      "swing_dir": [-1, 0]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "living_kitchen",
+      "name": "Living room + kitchen + hall",
+      "polygon_pt": [
+        [354.0, 286.2],
+        [583.8, 286.2],
+        [583.8, 473.5],
+        [646.2, 473.5],
+        [646.2, 643.0],
+        [388.6, 643.0],
+        [388.6, 602.5],
+        [354.0, 602.5]
+      ],
+      "note": "The hall is open to the living room and runs from the bedroom door down to the entrance."
+    },
+    {
+      "id": "bedroom",
+      "name": "Bedroom",
+      "polygon_pt": [
+        [589.4, 198.6],
+        [750.4, 198.6],
+        [750.4, 467.1],
+        [589.4, 467.1]
+      ]
+    },
+    {
+      "id": "bathroom",
+      "name": "Bathroom",
+      "polygon_pt": [
+        [654.0, 473.5],
+        [750.4, 473.5],
+        [750.4, 625.4],
+        [701.4, 625.4],
+        [701.4, 643.0],
+        [654.0, 643.0]
+      ]
+    }
+  ],
+  "balcony": {
+    "slab_pt": [349.0, 569.0, 183.0, 262.0],
+    "railing_pt": [349.0, 569.0, 179.5, 183.0],
+    "privacy_screen_pt": [347.0, 349.0, 185.0, 262.0]
+  },
+  "fixtures_reference": {
+    "_note": "Utility points from the installation plan, kept for furnishing. They are not architectural geometry.",
+    "kitchen_sink_water": [358.0, 550.0],
+    "dishwasher_socket": [358.0, 540.0],
+    "hob_400V": [429.0, 630.0],
+    "kitchen_hood_inlet": "kitchen shaft",
+    "bathtub": {
+      "rect_pt": [654.5, 750.4, 476.0, 513.5]
+    },
+    "washbasin_water": [727.0, 550.0],
+    "wc_frame_wall": [678.0, 643.0],
+    "washing_machine": {
+      "rect_pt": [715.0, 747.0, 590.0, 625.4]
+    },
+    "radiator_living": {
+      "rect_pt": [535.0, 560.0, 288.0, 296.0],
+      "note": "'grzejnik wyższy' (taller radiator) next to the balcony door."
+    },
+    "radiator_bedroom": {
+      "rect_pt": [638.0, 700.0, 200.5, 210.0],
+      "note": "'grzejnik niski' (low radiator) under the window."
+    },
+    "fuse_box_RM": {
+      "rect_pt": [625.0, 643.0, 637.0, 643.0]
+    },
+    "intercom": [512.0, 605.0],
+    "light_outlets": {
+      "_note": "Light outlets from the installation plan legend: 'wypust sufitowy' (ceiling, circle with a cross) and 'wypust scienny' (wall). Centres measured from the PDF vectors; the letter is the switch circuit. data/lighting.json hangs the fixtures on these points.",
+      "A": {
+        "kind": "ceiling",
+        "pt": [548.4, 574.76],
+        "room": "hall, inside the entrance door"
+      },
+      "B": { "kind": "ceiling", "pt": [444.84, 541.52], "room": "kitchen" },
+      "CC1": {
+        "kind": "ceiling",
+        "pt": [468.96, 379.4],
+        "room": "living room"
+      },
+      "DD1": { "kind": "ceiling", "pt": [669.96, 315.8], "room": "bedroom" },
+      "E": { "kind": "ceiling", "pt": [693.0, 556.76], "room": "bathroom" },
+      "E1": {
+        "kind": "wall",
+        "pt": [750.4, 549.32],
+        "h_m": 2.3,
+        "room": "bathroom, east wall above the basin (the symbol is drawn at 720.0, 549.32, its wall is x 750.4)"
+      }
+    }
+  },
+  "_swing_dir": "swing_dir is the direction the leaf opens into, in Blender axes (+X right, +Y plan-up)."
+}

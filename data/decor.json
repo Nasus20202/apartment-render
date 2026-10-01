@@ -1,0 +1,173 @@
+{
+  "_coords": "World metres. 'at' = base centre [x, y, z], z = top of the surface it stands on. rot = degrees about Z (0 = model front faces -Y). scale = uniform scale (default 1).",
+  "items": [
+    {
+      "asset": "polyhaven:ceramic_vase_03",
+      "at": [3.85, 5.4, 0.55],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:standing_picture_frame_01",
+      "at": [3.86, 4.25, 0.55],
+      "rot": -90
+    },
+    {
+      "asset": "polyhaven:hanging_picture_frame_02",
+      "at": [0.03, 5.05, 1.3],
+      "rot": 90
+    },
+    {
+      "asset": "polyhaven:wooden_bowl_01",
+      "at": [2.1, 2.55, 0.75],
+      "rot": 15
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_04",
+      "at": [1.15, 2.7, 0.9],
+      "rot": 0
+    },
+    {
+      "asset": "proc:table_lamp",
+      "at": [6.77, 6.4, 0.55]
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [6.8, 4.24, 0.47],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [6.76, 6.84, 0.0],
+      "rot": 40,
+      "scale": 0.6
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [5.95, 0.1, 1.225],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [0.3, 2.75, 0.9],
+      "rot": 20
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_01",
+      "at": [2.65, 0.3, 0.9],
+      "rot": 0
+    },
+    {
+      "asset": "proc:table_lamp",
+      "at": [0.22, 3.78, 0.8]
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_01",
+      "at": [0.22, 3.25, 0.8],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [0.12, 3.35, 1.45],
+      "rot": 15,
+      "scale": 0.42
+    },
+    {
+      "asset": "polyhaven:decorative_book_set_01",
+      "at": [0.12, 3.68, 1.45],
+      "rot": 90
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.85, 3.82, 0.922],
+      "rot": 30,
+      "scale": 0.48
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_02",
+      "at": [3.85, 3.82, 1.372],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.85, 3.82, 1.822],
+      "rot": 200,
+      "scale": 0.48
+    },
+    {
+      "asset": "polyhaven:decorative_book_set_01",
+      "at": [3.85, 5.8, 0.922],
+      "rot": -90
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.85, 5.8, 1.372],
+      "rot": 110,
+      "scale": 0.48
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_04",
+      "at": [3.85, 5.8, 1.822],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.85, 4.35, 2.2],
+      "rot": 60,
+      "scale": 0.6
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.85, 5.3, 2.2],
+      "rot": 250,
+      "scale": 0.55
+    },
+    {
+      "asset": "polyhaven:potted_plant_01",
+      "at": [3.48, 7.82, -0.03],
+      "rot": 40,
+      "scale": 0.9
+    },
+    {
+      "asset": "polyhaven:potted_plant_01",
+      "at": [2.8, 7.88, -0.03],
+      "rot": -30,
+      "scale": 0.6
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [6.84, 0.62, 1.15],
+      "rot": 30
+    },
+    {
+      "asset": "polyhaven:decorative_book_set_01",
+      "at": [6.87, 6.98, 1.18],
+      "rot": -90
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [6.88, 7.48, 1.18],
+      "rot": 10
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [6.88, 7.02, 1.53],
+      "rot": 150,
+      "scale": 0.34
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_02",
+      "at": [6.88, 7.5, 1.53],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:ceramic_vase_01",
+      "at": [6.88, 6.95, 1.88],
+      "rot": 0
+    },
+    {
+      "asset": "polyhaven:decorative_book_set_01",
+      "at": [6.87, 7.42, 1.88],
+      "rot": -90
+    }
+  ]
+}

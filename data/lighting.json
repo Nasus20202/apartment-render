@@ -1,0 +1,51 @@
+{
+  "_note": "Ceiling and wall light fixtures. Each one hangs on a light outlet from the developer's installation plan (data/floorplan.json fixtures_reference.light_outlets) unless it says otherwise. Metres in the Blender frame. Watts are Cycles light power, tuned by eye for the evening renders, not lamp ratings.",
+  "fixtures": [
+    {
+      "id": "Strip_hall_kitchen",
+      "type": "led_strip",
+      "outlets": ["A", "B"],
+      "start_y": 0.3,
+      "end_x": 0.7,
+      "width": 0.035,
+      "w_per_m": 14,
+      "note": "Recessed linear LED profile in the ceiling: from just inside the entrance door it runs north through outlet A, turns 90 degrees at outlet B's Y and runs west through B into the kitchen. Path = (A.x, start_y) -> (A.x, B.y) -> (end_x, B.y), so both outlets feed it."
+    },
+    {
+      "id": "Pendant_globe",
+      "type": "globe_pendants",
+      "at": [
+        [0.95, 2.55],
+        [1.75, 2.55],
+        [2.45, 2.55]
+      ],
+      "bottom_z": 1.55,
+      "w": 18,
+      "note": "Opal globes over the counter and the oak table (0.80 m above it). NOT on an outlet: they need a cable run in the ceiling from outlet B, 0.76 m south of them."
+    },
+    {
+      "id": "Lantern_living",
+      "type": "lantern",
+      "outlet": "CC1",
+      "radius": 0.2,
+      "centre_z": 2.3,
+      "w": 25
+    },
+    {
+      "id": "Lantern_bedroom",
+      "type": "lantern",
+      "outlet": "DD1",
+      "radius": 0.2,
+      "centre_z": 2.3,
+      "w": 25
+    },
+    {
+      "id": "Ceiling_bath",
+      "type": "flush_disc",
+      "outlet": "E",
+      "radius": 0.16,
+      "w": 40
+    }
+  ],
+  "_wall_lights": "The bathroom mirror light sits on wall outlet E1 (h 2.30 m); it is part of the bath_counter item in data/furniture.json (params light_at / light_z)."
+}

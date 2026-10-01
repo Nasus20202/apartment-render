@@ -1,0 +1,107 @@
+{
+  "_note": "Third-party assets, all CC0. scripts/fetch_assets.py downloads them into assets/ (gitignored). 'use' says where each one goes.",
+  "polyhaven_models": {
+    "potted_plant_01": {
+      "res": "2k",
+      "use": "living room plant by the balcony glazing"
+    },
+    "potted_plant_02": { "res": "1k", "use": "bedroom plant" },
+    "potted_plant_04": {
+      "res": "1k",
+      "use": "small succulent: kitchen shelf, desk"
+    },
+    "side_table_01": { "res": "2k", "use": "bedroom nightstand (oak)" },
+    "modern_ceiling_lamp_01": {
+      "res": "1k",
+      "use": "globe pendants over the island and table"
+    },
+    "ceramic_vase_01": { "res": "1k", "use": "decor" },
+    "ceramic_vase_02": { "res": "1k", "use": "decor" },
+    "ceramic_vase_03": { "res": "1k", "use": "decor" },
+    "ceramic_vase_04": { "res": "1k", "use": "decor" },
+    "decorative_book_set_01": {
+      "res": "1k",
+      "use": "books on the TV console and shelves"
+    },
+    "wicker_basket_02": { "res": "1k", "use": "living room basket" },
+    "wooden_bowl_01": { "res": "1k", "use": "dining table centrepiece" },
+    "standing_picture_frame_01": { "res": "1k", "use": "frame on the console" },
+    "hanging_picture_frame_02": { "res": "1k", "use": "art above the sofa" },
+    "tree_small_02": {
+      "res": "1k",
+      "use": "young deciduous trees in the courtyard below the balcony"
+    },
+    "island_tree_01": {
+      "res": "1k",
+      "use": "larger deciduous trees, scaled up, at window height across the courtyard"
+    },
+    "shrub_02": { "res": "2k", "use": "shrubs in the courtyard" }
+  },
+  "polyhaven_hdris": {
+    "park_parking": {
+      "res": "4k",
+      "use": "daylight + view through the windows (sunny, trees at window height)"
+    }
+  },
+  "ambientcg": {
+    "WoodFloor062": {
+      "res": "2K-JPG",
+      "use": "oak plank floor (lightened in the shader)"
+    },
+    "Wood094": {
+      "res": "2K-JPG",
+      "use": "light oak veneer: kitchen fronts, table, bed, desk top"
+    },
+    "Fabric062": { "res": "2K-JPG", "use": "sofa: oatmeal woven upholstery" },
+    "Carpet016": {
+      "res": "2K-JPG",
+      "use": "living rug, footrest (boucle-like)"
+    },
+    "Fabric019": { "res": "2K-JPG", "use": "bedding: white cotton" },
+    "Fabric036": {
+      "res": "2K-JPG",
+      "use": "linen: pillows, curtains, upholstered headboard"
+    },
+    "Fabric066": { "res": "2K-JPG", "use": "sage linen throw and cushions" },
+    "Travertine009": {
+      "res": "2K-JPG",
+      "use": "spare: warm stone (the bathroom used it before the subway tiles)"
+    },
+    "Tiles010": {
+      "res": "2K-JPG",
+      "use": "bathroom walls: handmade-look glossy subway tiles, white and tinted forest green"
+    },
+    "Marble012": {
+      "res": "2K-JPG",
+      "use": "kitchen and island worktop (honed)"
+    },
+    "Terrazzo013": {
+      "res": "2K-JPG",
+      "use": "window sills (stone conglomerate per the developer plan) and the bathroom floor"
+    },
+    "Plaster001": {
+      "res": "1K-JPG",
+      "use": "wall surface relief under the paint"
+    },
+    "Grass004": {
+      "res": "2K-JPG",
+      "use": "lawn in the courtyard, 6 m below the balcony"
+    },
+    "PavingStones070": { "res": "2K-JPG", "use": "paths in the courtyard" }
+  },
+  "_images_note": "Public-domain prints from Wikimedia Commons (scans of 1878-79 books, no known copyright). Fetched as 1600 px JPEGs into assets/images/<key>.jpg.",
+  "images": {
+    "botanical_1": {
+      "commons": "File:The native flowers and ferns of the United States in their botanical, horticultural and popular aspects (1879) (14758148216).jpg",
+      "use": "bedroom triptych, left (Meehan, 1879)"
+    },
+    "botanical_2": {
+      "commons": "File:The native flowers and ferns of the United States in their botanical, horticultural and popular aspects (1879) (14758150496).jpg",
+      "use": "bedroom triptych, centre (fern)"
+    },
+    "botanical_3": {
+      "commons": "File:The native flowers and ferns of the United States in their botanical, horticultural and popular aspects (1878) (14771214234).jpg",
+      "use": "bedroom triptych, right"
+    }
+  }
+}
