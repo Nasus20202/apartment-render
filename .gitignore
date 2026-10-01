@@ -1,0 +1,6 @@
+*.blend1
+__pycache__/
+assets/
+renders/preview/
+.venv/
+*.blend

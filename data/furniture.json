@@ -1,0 +1,507 @@
+{
+  "_coords": "Metres in the Blender frame from data/floorplan.json (origin = inner SW corner of the living room, +Y = plan up). footprint = [xmin, xmax, ymin, ymax]; z = [bottom, top]; facing = the direction the item's front faces (+x, -x, +y, -y).",
+  "_anchors": "Placement follows the installation points on the developer plan. Positions in metres: living TV/SAT/INT + socket on the partition wall at Y~5.3; living sockets on the west wall at Y~3.5 and ~6.0; kitchen sink water ~Y1.6 and dishwasher socket Y1.84 on the west wall; hob 400V outlet X~1.5 and hood socket X1.32 on the south wall; fridge socket X2.24; bedroom sockets on the east wall at Y~5.25 and ~7.05; bathroom WC frame X5.72, basin Y~1.64, washing machine socket h=70 Y0.66.",
+  "_style": "Scandinavian + Japandi: light oak, warm white and greige, linen and boucle textiles, matte black and white details, ceramics and plants.",
+  "items": [
+    {
+      "id": "kitchen_base_west",
+      "room": "kitchen",
+      "cat": "kitchen",
+      "label": "Sink",
+      "footprint": [0.0, 0.6, 0.715, 2.1],
+      "z": [0, 0.9],
+      "facing": "+x",
+      "source": "proc:kitchen_run",
+      "params": { "sink_at": 1.35 }
+    },
+    {
+      "id": "kitchen_base_south",
+      "room": "kitchen",
+      "cat": "kitchen",
+      "label": "Hob + oven",
+      "footprint": [1.21, 2.83, 0.0, 0.6],
+      "z": [0, 0.9],
+      "facing": "+y",
+      "source": "proc:kitchen_run",
+      "params": {
+        "hob_at": 1.61,
+        "oven_under_hob": true,
+        "small_door": [2.53, 2.83]
+      }
+    },
+    {
+      "id": "fridge",
+      "room": "kitchen",
+      "cat": "kitchen",
+      "label": "Fridge",
+      "footprint": [0.61, 1.21, 0.0, 0.6],
+      "z": [0, 2.85],
+      "facing": "+y",
+      "source": "proc:tall_unit",
+      "params": { "fridge": true }
+    },
+    {
+      "id": "kitchen_upper_south",
+      "room": "kitchen",
+      "cat": "kitchen_upper",
+      "label": "",
+      "footprint": [1.21, 2.83, 0.0, 0.35],
+      "z": [1.5, 2.85],
+      "facing": "+y",
+      "source": "proc:upper_run",
+      "params": { "hood_at": 1.61 }
+    },
+    {
+      "id": "kitchen_upper_west",
+      "room": "kitchen",
+      "cat": "kitchen_upper",
+      "label": "",
+      "footprint": [0.0, 0.35, 0.715, 2.1],
+      "z": [1.5, 2.85],
+      "facing": "+x",
+      "source": "proc:upper_run"
+    },
+    {
+      "id": "peninsula",
+      "room": "kitchen",
+      "cat": "kitchen",
+      "label": "Counter + table",
+      "footprint": [0.0, 2.8, 2.1, 3.0],
+      "z": [0, 0.9],
+      "facing": "-y",
+      "source": "proc:peninsula",
+      "params": {
+        "cabinets_to": 1.4,
+        "cabinet_depth": 0.6,
+        "dishwasher": [0.6, 1.2],
+        "top_thickness": 0.06,
+        "table_height": 0.75,
+        "table_material": "oak"
+      }
+    },
+    {
+      "id": "dining_chair_n1",
+      "room": "kitchen",
+      "cat": "seat",
+      "label": "",
+      "footprint": [1.52, 1.98, 2.88, 3.36],
+      "z": [0, 0.8],
+      "facing": "-y",
+      "source": "proc:dining_chair"
+    },
+    {
+      "id": "dining_chair_n2",
+      "room": "kitchen",
+      "cat": "seat",
+      "label": "",
+      "footprint": [2.22, 2.68, 2.88, 3.36],
+      "z": [0, 0.8],
+      "facing": "-y",
+      "source": "proc:dining_chair"
+    },
+    {
+      "id": "dining_chair_s1",
+      "room": "kitchen",
+      "cat": "seat",
+      "label": "",
+      "footprint": [1.52, 1.98, 1.74, 2.22],
+      "z": [0, 0.8],
+      "facing": "+y",
+      "source": "proc:dining_chair"
+    },
+    {
+      "id": "dining_chair_s2",
+      "room": "kitchen",
+      "cat": "seat",
+      "label": "",
+      "footprint": [2.22, 2.68, 1.74, 2.22],
+      "z": [0, 0.8],
+      "facing": "+y",
+      "source": "proc:dining_chair"
+    },
+
+    {
+      "id": "sofa",
+      "room": "living",
+      "cat": "seat",
+      "label": "Sofa 190",
+      "footprint": [0.0, 0.95, 4.1, 6.0],
+      "z": [0, 0.8],
+      "facing": "+x",
+      "source": "proc:sofa",
+      "params": { "fabric": "velvet_green" }
+    },
+    {
+      "id": "footrest",
+      "room": "living",
+      "cat": "seat",
+      "label": "Round footrest",
+      "footprint": [1.1, 1.7, 4.85, 5.45],
+      "z": [0, 0.42],
+      "facing": "-x",
+      "source": "proc:ottoman",
+      "params": { "round": true }
+    },
+    {
+      "id": "rug_living",
+      "room": "living",
+      "cat": "rug",
+      "label": "",
+      "footprint": [0.85, 2.65, 4.0, 5.9],
+      "z": [0, 0.012],
+      "facing": "+x",
+      "source": "proc:rug"
+    },
+    {
+      "id": "media_wall",
+      "room": "living",
+      "cat": "storage",
+      "label": "Media wall",
+      "footprint": [3.65, 4.05, 3.6, 6.0],
+      "z": [0, 2.2],
+      "facing": "-x",
+      "source": "proc:media_wall",
+      "params": {
+        "tower_width": 0.4,
+        "console_z": [0.2, 0.55],
+        "bridge_z0": 1.9
+      }
+    },
+    {
+      "id": "tv",
+      "room": "living",
+      "cat": "tv",
+      "label": "",
+      "footprint": [3.995, 4.035, 4.08, 5.52],
+      "z": [0.85, 1.68],
+      "facing": "-x",
+      "source": "proc:tv"
+    },
+    {
+      "id": "plant_living",
+      "room": "living",
+      "cat": "decor",
+      "label": "",
+      "footprint": [0.98, 1.38, 5.85, 6.25],
+      "z": [0, 1.35],
+      "facing": "-y",
+      "source": "polyhaven:potted_plant_01"
+    },
+    {
+      "id": "sideboard",
+      "room": "living",
+      "cat": "storage",
+      "label": "Sideboard",
+      "footprint": [0.0, 0.45, 3.02, 4.02],
+      "z": [0, 0.8],
+      "facing": "+x",
+      "source": "proc:tv_console",
+      "params": { "doors": 2 }
+    },
+    {
+      "id": "sideboard_shelf",
+      "room": "living",
+      "cat": "storage",
+      "label": "",
+      "footprint": [0.0, 0.24, 3.17, 3.87],
+      "z": [1.42, 1.45],
+      "facing": "+x",
+      "source": "proc:floating_shelf"
+    },
+
+    {
+      "id": "slat_screen",
+      "room": "hall",
+      "cat": "wall",
+      "label": "Oak slat screen",
+      "footprint": [2.835, 2.905, 0.0, 1.041],
+      "z": [0, 2.95],
+      "facing": "+x",
+      "source": "proc:slat_screen",
+      "params": {
+        "material": "oak",
+        "slat_width": 0.04,
+        "gap": 0.03,
+        "solid_end": 0.12,
+        "remove": ["O_entrance_arch_out_a"]
+      }
+    },
+    {
+      "id": "hall_wardrobe",
+      "room": "hall",
+      "cat": "storage",
+      "label": "L wardrobe",
+      "footprint": [4.03, 5.155, 0.0, 0.96],
+      "z": [0, 2.85],
+      "facing": "+y",
+      "source": "proc:l_wardrobe",
+      "params": {
+        "main_depth": 0.6,
+        "return_depth": 0.4,
+        "split_z": 2.25,
+        "shoe_niche": 0.42
+      }
+    },
+    {
+      "id": "hall_mirror",
+      "room": "hall",
+      "cat": "decor",
+      "label": "",
+      "footprint": [5.12, 5.155, 2.05, 2.65],
+      "z": [0.55, 2.05],
+      "facing": "-x",
+      "source": "proc:mirror"
+    },
+
+    {
+      "id": "bed_wardrobe",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "Wardrobe (sliding)",
+      "footprint": [5.15, 6.99, 3.1, 3.7],
+      "z": [0, 2.85],
+      "facing": "+y",
+      "source": "proc:wardrobe",
+      "params": { "doors": 2, "sliding": true, "split_z": 2.25 }
+    },
+    {
+      "id": "bed",
+      "room": "bedroom",
+      "cat": "bed",
+      "label": "Bed 160x200",
+      "footprint": [4.99, 6.99, 4.45, 6.05],
+      "z": [0, 0.95],
+      "facing": "-x",
+      "source": "proc:bed"
+    },
+    {
+      "id": "bedside_shelf_s",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.61, 6.99, 4.06, 4.42],
+      "z": [0.42, 0.47],
+      "facing": "-x",
+      "source": "proc:floating_shelf"
+    },
+    {
+      "id": "nightstand_n",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.54, 6.99, 6.1, 6.65],
+      "z": [0, 0.55],
+      "facing": "-x",
+      "source": "polyhaven:side_table_01"
+    },
+    {
+      "id": "desk",
+      "room": "bedroom",
+      "cat": "table",
+      "label": "Standing desk 160x70",
+      "footprint": [5.35, 6.95, 7.0, 7.7],
+      "z": [0, 0.74],
+      "facing": "-y",
+      "source": "proc:standing_desk",
+      "params": {
+        "monitors_x": 0.72,
+        "monitor_angle": 12,
+        "pc_x": [1.42, 1.53]
+      }
+    },
+    {
+      "id": "desk_chair",
+      "room": "bedroom",
+      "cat": "seat",
+      "label": "",
+      "footprint": [5.77, 6.37, 6.38, 6.98],
+      "z": [0, 1.2],
+      "facing": "+y",
+      "source": "proc:office_chair"
+    },
+    {
+      "id": "bed_shelf_1",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.77, 6.982, 6.72, 7.72],
+      "z": [1.15, 1.18],
+      "facing": "-x",
+      "source": "proc:floating_shelf"
+    },
+    {
+      "id": "bed_shelf_2",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.77, 6.982, 6.72, 7.72],
+      "z": [1.5, 1.53],
+      "facing": "-x",
+      "source": "proc:floating_shelf"
+    },
+    {
+      "id": "bed_shelf_3",
+      "room": "bedroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.77, 6.982, 6.72, 7.72],
+      "z": [1.85, 1.88],
+      "facing": "-x",
+      "source": "proc:floating_shelf"
+    },
+    {
+      "id": "print_1",
+      "room": "bedroom",
+      "cat": "decor",
+      "label": "",
+      "footprint": [6.952, 6.982, 5.51, 5.91],
+      "z": [1.3, 1.85],
+      "facing": "-x",
+      "source": "proc:art_print",
+      "params": { "image": "botanical_1" }
+    },
+    {
+      "id": "print_2",
+      "room": "bedroom",
+      "cat": "decor",
+      "label": "",
+      "footprint": [6.952, 6.982, 5.05, 5.45],
+      "z": [1.3, 1.85],
+      "facing": "-x",
+      "source": "proc:art_print",
+      "params": { "image": "botanical_2" }
+    },
+    {
+      "id": "print_3",
+      "room": "bedroom",
+      "cat": "decor",
+      "label": "",
+      "footprint": [6.952, 6.982, 4.59, 4.99],
+      "z": [1.3, 1.85],
+      "facing": "-x",
+      "source": "proc:art_print",
+      "params": { "image": "botanical_3" }
+    },
+
+    {
+      "id": "shower",
+      "room": "bathroom",
+      "cat": "bath",
+      "label": "Rain shower 170x90",
+      "footprint": [5.3, 6.99, 2.09, 2.99],
+      "z": [0, 2.65],
+      "facing": "-y",
+      "source": "proc:walkin_shower",
+      "params": { "glass_from_x": 6.0, "head_at": [6.15, 2.6], "head_z": 2.2 }
+    },
+    {
+      "id": "bath_counter",
+      "room": "bathroom",
+      "cat": "bath",
+      "label": "Basin",
+      "footprint": [6.38, 6.982, 0.32, 1.94],
+      "z": [0, 0.9],
+      "facing": "-x",
+      "source": "proc:bath_counter",
+      "params": {
+        "basin_at": 1.62,
+        "cabinet": [0.96, 1.94],
+        "front": "oak_rich",
+        "mirror_width": 0.6,
+        "mirror_z": [1.1, 2.05],
+        "light_at": 1.653,
+        "light_z": 2.3
+      }
+    },
+    {
+      "id": "bath_cabinet",
+      "room": "bathroom",
+      "cat": "storage",
+      "label": "",
+      "footprint": [6.68, 6.982, 0.33, 0.94],
+      "z": [1.45, 2.15],
+      "facing": "-x",
+      "source": "proc:wall_cabinet",
+      "params": {
+        "doors": 2,
+        "front": "oak_rich",
+        "wood": "oak_rich",
+        "shelf_below": 0.3
+      }
+    },
+    {
+      "id": "wc_frame_boxing",
+      "room": "bathroom",
+      "cat": "boxing",
+      "label": "",
+      "footprint": [5.3, 6.13, 0.0, 0.2],
+      "z": [0, 1.2],
+      "facing": "+y",
+      "source": "proc:boxing"
+    },
+    {
+      "id": "wc",
+      "room": "bathroom",
+      "cat": "bath",
+      "label": "WC",
+      "footprint": [5.54, 5.9, 0.2, 0.74],
+      "z": [0.0, 0.42],
+      "facing": "+y",
+      "source": "proc:wc"
+    },
+    {
+      "id": "washing_machine",
+      "room": "bathroom",
+      "cat": "bath",
+      "label": "Washer",
+      "footprint": [6.38, 6.975, 0.32, 0.92],
+      "z": [0, 0.85],
+      "facing": "-x",
+      "source": "proc:washing_machine"
+    },
+    {
+      "id": "towel_rail",
+      "room": "bathroom",
+      "cat": "bath",
+      "label": "",
+      "footprint": [5.293, 5.34, 0.3, 0.8],
+      "z": [0.6, 1.6],
+      "facing": "+x",
+      "source": "proc:towel_rail"
+    },
+
+    {
+      "id": "balcony_table",
+      "room": "balcony",
+      "cat": "table",
+      "label": "Bistro",
+      "footprint": [0.4, 1.0, 7.12, 7.72],
+      "z": [0, 0.72],
+      "base_z": -0.03,
+      "facing": "-y",
+      "source": "proc:bistro_table"
+    },
+    {
+      "id": "balcony_chair_w",
+      "room": "balcony",
+      "cat": "seat",
+      "label": "",
+      "footprint": [-0.06, 0.4, 7.19, 7.65],
+      "z": [0, 0.86],
+      "base_z": -0.03,
+      "facing": "+x",
+      "source": "proc:bistro_chair"
+    },
+    {
+      "id": "balcony_chair_e",
+      "room": "balcony",
+      "cat": "seat",
+      "label": "",
+      "footprint": [1.0, 1.46, 7.19, 7.65],
+      "z": [0, 0.86],
+      "base_z": -0.03,
+      "facing": "-x",
+      "source": "proc:bistro_chair"
+    }
+  ]
+}

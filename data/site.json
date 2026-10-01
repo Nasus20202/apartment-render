@@ -1,0 +1,122 @@
+{
+  "_note": "What is seen from the flat: the courtyard below and the buildings around it. Not on the floor plan, so all of it is illustrative except the storey height (data/floorplan.json heights_m.floor_above_grade). World metres; the ground sits at -floor_above_grade. Trees are Poly Haven models scaled to 'height' (m).",
+  "date_time": "2026-09-20T12:00:00+02:00",
+  "_date_time_note": "Sun position for this moment in Gdansk, computed from data/floorplan.json orientation. Mid-September around noon: the sun stands at ~168 deg, 36 deg high, and shines in through the balcony from the right.",
+  "paths": [
+    {
+      "rect": [-40.0, 45.0, 10.2, 12.0]
+    }
+  ],
+  "trees": [
+    {
+      "asset": "tree_small_02",
+      "at": [-2.8, 13.8],
+      "height": 6.5,
+      "rot": 20
+    },
+    {
+      "asset": "tree_small_02",
+      "at": [6.2, 15.5],
+      "height": 7.0,
+      "rot": 140
+    },
+    {
+      "asset": "tree_small_02",
+      "at": [13.5, 13.2],
+      "height": 6.0,
+      "rot": 260
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [1.8, 22.5],
+      "height": 9.5,
+      "rot": 75
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [-10.5, 20.0],
+      "height": 9.0,
+      "rot": 200
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [12.5, 27.0],
+      "height": 10.0,
+      "rot": 320
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [-4.0, 34.0],
+      "height": 12.5,
+      "rot": 30
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [8.0, 37.0],
+      "height": 13.0,
+      "rot": 150
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [20.0, 33.0],
+      "height": 12.0,
+      "rot": 250
+    },
+    {
+      "asset": "island_tree_01",
+      "at": [-17.0, 36.0],
+      "height": 12.5,
+      "rot": 100
+    }
+  ],
+  "shrubs": [
+    {
+      "asset": "shrub_02",
+      "at": [-1.0, 9.6],
+      "height": 1.2,
+      "rot": 0
+    },
+    {
+      "asset": "shrub_02",
+      "at": [2.2, 9.4],
+      "height": 1.0,
+      "rot": 90
+    },
+    {
+      "asset": "shrub_02",
+      "at": [5.6, 9.7],
+      "height": 1.2,
+      "rot": 200
+    },
+    {
+      "asset": "shrub_02",
+      "at": [-6.0, 9.5],
+      "height": 1.1,
+      "rot": 300
+    }
+  ],
+  "buildings": [
+    {
+      "_what": "this building, west of the flat (neighbouring flats)",
+      "rect": [-14.0, -0.203, -1.0, 6.722],
+      "z_top": 9.6
+    },
+    {
+      "_what": "this building, east of the flat",
+      "rect": [7.198, 20.0, -1.0, 8.213],
+      "z_top": 9.6
+    },
+    {
+      "_what": "this building above the flat (living side)",
+      "rect": [-0.203, 3.793, -0.238, 6.722],
+      "z_bottom": 3.25,
+      "z_top": 9.6
+    },
+    {
+      "_what": "this building above the flat (bedroom side)",
+      "rect": [3.793, 7.198, -0.238, 8.213],
+      "z_bottom": 3.25,
+      "z_top": 9.6
+    }
+  ]
+}
