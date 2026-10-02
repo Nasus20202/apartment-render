@@ -21,7 +21,7 @@ make assets     # download assets (idempotent)                         -> assets
 make interior   # furnished, lit scene                                 -> blender/apartment.blend
 make preview    # every view at half size, 48 samples, 4 views per process (MODE=evening for lamps on) -> renders/preview/
 make render     # every view at 1800x1200, 256 samples + the furnished plan -> renders/interior/
-make evening    # evening views, lamps on (not the bathrooms)                            -> renders/interior/*_evening.png
+make evening    # evening views, lamps on (except `evening_skip` in cameras.json, now empty) -> renders/interior/*_evening.png
 make technical  # dimensioned A3 plan, 3 sheets, no Blender needed   -> renders/technical_plan.pdf
 make all        # shell layout assets interior render
 ```
