@@ -20,6 +20,8 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
+import itertools
+
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.backends.backend_pdf import PdfPages  # noqa: E402
 from matplotlib.patches import Arc, Circle, Ellipse, Polygon, Rectangle  # noqa: E402
@@ -152,7 +154,7 @@ class Sheet:
             e1 = (p[0], p[1] + sgn * 1.5) if horizontal else (p[0] + sgn * 1.5, p[1])
             self.line(e0, e1, lw=0.25, c=DIM, z=7)
             self.tick(p)
-        for i, (a, b) in enumerate(zip(vals, vals[1:], strict=False)):
+        for i, (a, b) in enumerate(itertools.pairwise(vals)):
             c = P((a + b) / 2, at) if horizontal else P(at, (a + b) / 2)
             narrow = (b - a) < 0.16
             off = 1.9 + (2.6 * (i % 2) if narrow else 0)
@@ -783,7 +785,7 @@ def sheet_services():
         if t == "led_strip":
             (ax_, _), (_, by) = out[fixture["outlets"][0]], out[fixture["outlets"][1]]
             pts = [P(ax_, fixture["start_y"]), P(ax_, by), P(fixture["end_x"], by)]
-            for a, b in zip(pts, pts[1:], strict=False):
+            for a, b in itertools.pairwise(pts):
                 sh.line(a, b, lw=1.6, c=GREY, ls=(0, (6, 1.5, 1, 1.5)), z=4)
         elif t == "globe_pendants":
             for at in fixture["at"]:

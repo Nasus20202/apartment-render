@@ -22,9 +22,10 @@ make all        # shell -> layout -> assets -> interior -> render
 | Furniture layout      | `make layout`                                                                  | `renders/layout_proposal.png` + clearance report                        |
 | Assets                | `make assets`                                                                  | `assets/` (CC0, gitignored, ~420 MB)                                    |
 | Interior              | `make interior`                                                                | `blender/apartment.blend`                                               |
+| Technical plan        | `make technical`                                                               | `renders/technical_plan.pdf` + PNGs (no Blender)                        |
 | Renders               | `make render` / `make evening` / `make preview` (one Blender process per view) | `renders/interior/`, `renders/preview/`                                 |
 
-Requires Blender 5.2 (`make ... BLENDER=/path/to/blender`; the Fedora package currently can't load its OCIO config, see [usage](docs/usage.md#setup)) and `uv`. Run `uv sync` to install the Python tooling (pymupdf, pillow, matplotlib, ruff); `make lint` checks and `make fmt` fixes style with ruff; `make test` runs the unit tests. Cycles uses the GPU through HIP (`rocm-hip`) when available and falls back to the CPU otherwise. The `.blend` files are build outputs and are not in git: run `make all` (shell, layout, assets, interior, renders) to create them.
+Requires Blender 5.2 (`make ... BLENDER=/path/to/blender`; the Fedora package can't load its OCIO config, see [usage](docs/usage.md#setup)) and `uv` (`uv sync`). Cycles uses the GPU through HIP when available and falls back to the CPU. The `.blend` files are build outputs and are not in git. `make lint`, `make fmt` and `make test` need no Blender. To walk through the result, see [usage](docs/usage.md#walking-through-it-in-blender).
 
 ## Data (source of truth)
 
@@ -44,17 +45,14 @@ Blender axes: origin at the inner south-west corner of the living room, +X to th
 ## Scripts
 
 - `build_shell.py`: walls, openings, floors, ceilings, balcony; section-cut plan render.
-- `build_layout.py`: placeholder blocks and clearance checks.
+- `build_layout.py` / `clearances.py`: placeholder blocks and clearance checks.
 - `technical_plan.py`: dimensioned three-sheet A3 technical plan (dimensions, fit-out, services; PDF + PNG) from `data/*.json`; `make technical`.
 - `materials.py`: PBR and procedural material library (box-projected, metric tile sizes).
 - `furniture.py`: procedural generators (kitchen, peninsula + table, sofa, media wall, bed with draped bedding, wardrobes incl. the L-shaped hall one, partition, desk with two monitors and a PC, office chair, framed prints, walk-in shower, basin counter, sanitaryware and more). See [docs/furniture.md](docs/furniture.md).
 - `build_interior.py`: finishes, doors, furniture, decor, curtains, lights from `lighting.json`, the balcony and courtyard, HDRI + sun, cameras, Cycles settings.
 - `fetch_assets.py`: downloads `data/assets.json` into `assets/`.
 - `render.py` / `modes.py`: batch rendering with day/evening lighting.
-
-## Walking through it in Blender
-
-Open `blender/apartment.blend`, set the viewport to _Material Preview_ or _Rendered_ (Z key), and look through `Cam_walk` (Numpad 0). Press **Shift + `** for Walk navigation: WASD to move, the mouse to look, **Tab** to toggle gravity, E/Q for up/down. For eye-height walking with gravity on by default, enable _Preferences → Navigation → Walk → Gravity_ and set the view height to 1.65 m.
+- `verify_overlay.py` / `plan_tiles.py`: check the shell against the PDF; plot PDF vectors on a grid (`make tiles`).
 
 ## Collections
 

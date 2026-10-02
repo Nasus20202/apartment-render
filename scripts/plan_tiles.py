@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 
 import matplotlib
 import pymupdf
@@ -7,7 +8,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-d = pymupdf.open("/home/nasus/Dev/apartment-render/references/floor-plan.pdf")
+d = pymupdf.open(Path(__file__).resolve().parent.parent / "references" / "floor-plan.pdf")
 p = d[0]
 M = p.rotation_matrix
 segs = []
