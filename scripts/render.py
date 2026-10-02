@@ -11,6 +11,7 @@ when Blender finds one, otherwise the CPU.
 
 import argparse
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -80,14 +81,25 @@ def main():
     if a.plan:
         top = bpy.data.objects["Cam_TopDown"]
         scene.camera = top
-        scene.view_settings.exposure = base_exposure
+        scene.view_settings.exposure = base_exposure - 2.4
         fx0, fx1, fy0, fy1 = top["plan_frame_m"]
         scene.render.resolution_x = round((fx1 - fx0) * 200)
         scene.render.resolution_y = round((fy1 - fy0) * 200)
-        # Overhead light for the plan: sun straight down-ish, so rooms read evenly
+        # The camera clip hides everything above the cut, but ceilings, the roof seal and the neighbouring
+        # buildings would still block the sun and sky, so take them and the ceiling fixtures out of the render.
+        bpy.data.collections["Ceilings"].hide_render = True
+        bpy.data.objects["Roof_Seal"].hide_render = True
+        for o in bpy.data.objects:
+            if o.name.startswith("Building_"):
+                o.hide_render = True
+        for o in bpy.data.collections["Lighting"].objects:
+            o.hide_render = o.type != "LIGHT"
+        # Overhead, soft light for the plan so tall walls don't throw hard shadows across the rooms
         sun = bpy.data.objects.get("Sun")
         if sun:
-            sun.rotation_euler = (0.35, 0.2, 0.6)
+            sun.rotation_euler = (0.12, 0.08, 0.6)
+            sun.data.angle = math.radians(12)
+            sun.data.energy *= 0.6
         scene.render.filepath = str(out / f"plan_furnished{suffix}.png")
         t = time.time()
         bpy.ops.render.render(write_still=True)

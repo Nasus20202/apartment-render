@@ -1,5 +1,6 @@
 *.blend1
 __pycache__/
+.pytest_cache
 assets/
 renders/preview/
 .venv/

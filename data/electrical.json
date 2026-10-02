@@ -1,0 +1,226 @@
+{
+  "_note": "Wall-mounted electrical, data and water points, drawn on the technical plan (scripts/technical_plan.py, sheet 3). Metres in the Blender frame; at = position on the wall face, face = the way the wall faces into the room (+x, -x, +y, -y); h = height above the finished floor. source: 'plan' = a point from the developer's installation plan (the plan prints no heights, so h_assumed marks heights set by convention); 'proposed' = not on the plan, suggested here and to be confirmed by the owner. The model's lights are in data/lighting.json and on the developer's light outlets.",
+  "points": [
+    {
+      "id": "S1",
+      "kind": "socket2",
+      "room": "living",
+      "at": [0.0, 3.5],
+      "face": "+x",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "West wall, behind the sideboard"
+    },
+    {
+      "id": "S2",
+      "kind": "socket2",
+      "room": "living",
+      "at": [0.0, 6.0],
+      "face": "+x",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "West wall, by the sofa"
+    },
+    {
+      "id": "TV",
+      "kind": "data",
+      "room": "living",
+      "at": [4.054, 5.3],
+      "face": "-x",
+      "h": 0.5,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "TV / SAT / internet with a double socket, on the media wall"
+    },
+    {
+      "id": "K1",
+      "kind": "water",
+      "room": "kitchen",
+      "at": [0.0, 1.64],
+      "face": "+x",
+      "h": 0.5,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "Sink water and drain"
+    },
+    {
+      "id": "K2",
+      "kind": "socket",
+      "room": "kitchen",
+      "at": [0.0, 1.82],
+      "face": "+x",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "Dishwasher, own circuit"
+    },
+    {
+      "id": "K3",
+      "kind": "socket400",
+      "room": "kitchen",
+      "at": [1.32, 0.0],
+      "face": "+y",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "Hob, 400 V"
+    },
+    {
+      "id": "K4",
+      "kind": "socket",
+      "room": "kitchen",
+      "at": [1.32, 0.0],
+      "face": "+y",
+      "h": 2.0,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Cooker hood socket, h 2.00 m"
+    },
+    {
+      "id": "K5",
+      "kind": "socket",
+      "room": "kitchen",
+      "at": [0.9, 0.0],
+      "face": "+y",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "proposed",
+      "note": "Fridge, in the tall unit"
+    },
+    {
+      "id": "K6",
+      "kind": "socket2",
+      "room": "kitchen",
+      "at": [2.3, 0.0],
+      "face": "+y",
+      "h": 1.1,
+      "h_assumed": true,
+      "source": "proposed",
+      "note": "Worktop, splashback"
+    },
+    {
+      "id": "K7",
+      "kind": "socket2",
+      "room": "kitchen",
+      "at": [0.0, 1.0],
+      "face": "+x",
+      "h": 1.1,
+      "h_assumed": true,
+      "source": "proposed",
+      "note": "Worktop, west run"
+    },
+    {
+      "id": "H1",
+      "kind": "switch",
+      "room": "hall",
+      "at": [2.754, 0.0],
+      "face": "+y",
+      "h": 1.1,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Light switches A and B, h 1.10 m, 15 cm from the entrance opening. Conflict with the kitchen run: move onto the slat screen post (see docs/flat.md)"
+    },
+    {
+      "id": "H2",
+      "kind": "intercom",
+      "room": "hall",
+      "at": [2.79, 0.0],
+      "face": "+y",
+      "h": 1.6,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Intercom, h 1.60 m"
+    },
+    {
+      "id": "B1",
+      "kind": "socket2",
+      "room": "bedroom",
+      "at": [6.994, 5.25],
+      "face": "-x",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "East wall, bed head"
+    },
+    {
+      "id": "B2",
+      "kind": "socket2",
+      "room": "bedroom",
+      "at": [6.994, 7.05],
+      "face": "-x",
+      "h": 0.3,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "East wall, desk"
+    },
+    {
+      "id": "T1",
+      "kind": "water",
+      "room": "bathroom",
+      "at": [6.994, 1.64],
+      "face": "-x",
+      "h": 0.5,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "Washbasin water and drain"
+    },
+    {
+      "id": "T2",
+      "kind": "water",
+      "room": "bathroom",
+      "at": [5.72, 0.0],
+      "face": "+y",
+      "h": 0.2,
+      "h_assumed": true,
+      "source": "plan",
+      "note": "WC frame: water and drain"
+    },
+    {
+      "id": "T3",
+      "kind": "socket",
+      "room": "bathroom",
+      "at": [6.994, 0.66],
+      "face": "-x",
+      "h": 0.7,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Washing machine socket, h 0.70 m"
+    },
+    {
+      "id": "T4",
+      "kind": "water",
+      "room": "bathroom",
+      "at": [6.994, 0.5],
+      "face": "-x",
+      "h": 0.7,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Washing machine water and drain, h 0.70 m"
+    },
+    {
+      "id": "T5",
+      "kind": "light",
+      "room": "bathroom",
+      "at": [6.994, 1.653],
+      "face": "-x",
+      "h": 2.3,
+      "h_assumed": false,
+      "source": "plan",
+      "note": "Wall light outlet E1 above the mirror"
+    },
+    {
+      "id": "T6",
+      "kind": "water",
+      "room": "bathroom",
+      "at": [6.15, 2.99],
+      "face": "-y",
+      "h": 1.1,
+      "h_assumed": true,
+      "source": "proposed",
+      "note": "Shower mixer; the rain head is at X 6.15, Y 2.60, h 2.20. The plan draws a bathtub, not a shower"
+    }
+  ],
+  "ceiling_fixtures_note": "Ceiling light outlets A, B, CC1, DD1, E are in floorplan.json (fixtures_reference.light_outlets)."
+}

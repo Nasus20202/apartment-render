@@ -22,6 +22,7 @@ make interior   # furnished, lit scene                                 -> blende
 make preview    # every view at half size, 48 samples (~35 s each)     -> renders/preview/
 make render     # every view at 1800x1200, 512 samples + the furnished plan -> renders/interior/
 make evening    # evening views, lamps on                              -> renders/interior/*_evening.png
+make technical  # dimensioned A3 plan, 3 sheets, no Blender needed   -> renders/technical_plan.pdf
 make all        # shell layout assets interior render
 ```
 
@@ -33,7 +34,19 @@ Each step reads only the data files and the previous step's output, so the edit 
 4. Render one view to check it: `blender -b blender/apartment.blend -P scripts/render.py -- --cams bedroom_bed --samples 48 --scale 50 --out renders/preview`.
 5. `make render evening` for the finals.
 
-`make lint` checks the scripts with ruff, and `make fmt` fixes and formats them.
+`make lint` checks the scripts and tests with ruff, and `make fmt` fixes and formats them. `make test` runs the unit tests with pytest, with no Blender needed: they validate the `data/*.json` schemas and cross-references, the layout clearances, the technical-plan geometry helpers and the asset fetcher (network mocked). GitHub Actions (`.github/workflows/ci.yml`) runs `make lint` and `make test` on every push to `main` and on pull requests. Blender builds and renders are not run in CI.
+
+## Technical plan
+
+`make technical` runs `scripts/technical_plan.py` (matplotlib, no Blender) and writes `renders/technical_plan.pdf`, a vector A3 drawing at 1:40 in black, white and grey, plus one PNG per sheet. Everything is read from `data/*.json`, so it follows any edit to them.
+
+| Sheet        | Content                                                                                                                                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 Dimensions | Walls (shafts hatched), openings with tags D1–D4 and W1–W2 and their size and sill, external and clear room dimensions, and the opening, wall and room schedules                                        |
+| 2 Fit-out    | Furniture footprints with sink, hob, fridge, dishwasher, WC, basin, shower, washer, bed and sofa details, key clearances, and a numbered size and position table                                        |
+| 3 Services   | Sockets, switches, TV/data, intercom, water and drain points (`data/electrical.json`), light outlets and the fixtures on them, radiators, fuse box, positions along the walls, a points table and notes |
+
+Dimensions are mm rounded to 10, from the plan's vectors (about ±20 mm). Heights not printed on the plan are marked `*`. On sheet 3, points marked PROPOSED are not on the developer's plan.
 
 ## Rendering
 
