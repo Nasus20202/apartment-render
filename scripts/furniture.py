@@ -268,7 +268,7 @@ def sink(name, cx, depth, parent):
         v.co.x = cx - w / 2 - 0.01 if v.co.x < 0 else cx + w / 2 + 0.01
         v.co.y = cy - d / 2 - 0.01 if v.co.y < 0 else cy + d / 2 + 0.01
         v.co.z = zt - h if v.co.z < 0 else zt
-    top = [f for f in bm.faces if f.normal.z > 0.5][0]
+    top = next(f for f in bm.faces if f.normal.z > 0.5)
     r = bmesh.ops.inset_region(bm, faces=[top], thickness=0.01, depth=0)
     bmesh.ops.translate(bm, verts=top.verts, vec=(0, 0, -(h - 0.01)))
     basin = mesh_obj(name + "_basin", bm, M["steel"], parent)
@@ -284,7 +284,7 @@ def sink(name, cx, depth, parent):
     ]
     tube_path(
         name + "_tap",
-        [(tx, ty, 0.90)] + arc + [(tx, ty - 2 * r, 1.06)],
+        [(tx, ty, 0.9), *arc, (tx, ty - 2 * r, 1.06)],
         0.011,
         M["black_metal"],
         parent,
@@ -371,7 +371,7 @@ def kitchen_run(item, root):
     # Fill the run: specials at their spot, drawer stacks in the gaps
     cursor, i = 0.0, 0
     zf0, zf1 = PLINTH, 0.90 - TOP_T
-    for kind, a, b in specials + [("end", w, w)]:
+    for kind, a, b in [*specials, ("end", w, w)]:
         a, b = max(a, cursor), min(b, w)
         while a - cursor > 0.15:
             seg_end = min(a, cursor + 0.60) if a - cursor > 0.75 else a
@@ -2053,7 +2053,7 @@ def bath_counter(item, root):
         for a in (math.radians(t) for t in range(15, 91, 15))
     ]
     tube_path(
-        n + "_tap_spout", spout + [(tx, ty - 0.13, top + 0.135)], 0.009, M["black_metal"], root
+        n + "_tap_spout", [*spout, (tx, ty - 0.13, top + 0.135)], 0.009, M["black_metal"], root
     )
     tube_path(
         n + "_tap_lever",

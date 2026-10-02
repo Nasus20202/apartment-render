@@ -18,6 +18,8 @@ import numpy as np
 from mathutils import Matrix, Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import itertools
+
 import build_shell as shell  # noqa: E402
 import furniture as F  # noqa: E402
 import materials  # noqa: E402
@@ -96,7 +98,7 @@ def signed_area(poly):
     return sum(x1 * y2 - x2 * y1 for (x1, y1), (x2, y2) in zip(poly, poly[1:] + poly[:1])) / 2
 
 
-def wall_runs(room_id, skip_openings=True, z_max=None):
+def wall_runs(room_id, skip_openings=True):
     """Yield (axis, fixed, s0, s1, inward_sign) for each wall-face segment of a room, minus floor-level openings.
 
     axis 'x' means the face runs along X at y = fixed and the room lies toward inward_sign * Y.
@@ -706,7 +708,7 @@ def lights(L):
 def led_strip(name, path, width, w_per_m, L, coll):
     """Recessed aluminium LED profile along a polyline of (x, y) points on the ceiling, each straight run
     with a rectangular area light under its opal diffuser."""
-    for k, ((x0, y0), (x1, y1)) in enumerate(zip(path, path[1:])):
+    for k, ((x0, y0), (x1, y1)) in enumerate(itertools.pairwise(path)):
         # Extend each run by half the width at both ends so the corners close up square
         h = width / 2
         xa, xb = sorted((x0, x1))
