@@ -145,6 +145,8 @@ jobs:
         with:
           path: images
           merge-multiple: true
+      - name: ImageMagick
+        run: sudo apt-get install -y --no-install-recommends imagemagick
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -155,7 +157,11 @@ jobs:
           python3 scripts/ci_release_notes.py images --samples "${{ inputs.samples }}" \
             --sha "${GITHUB_SHA::7}" --started "$started" > notes.md
           cat notes.md
-          files=(images/*.png images/*.pdf)
+          # JPG copies of the camera views (the PNGs stay as the lossless originals); plans stay PNG/PDF
+          for v in $(python3 scripts/ci_matrix.py --views); do
+            convert "images/$v.png" -sampling-factor 4:4:4 -quality 92 "images/$v.jpg"
+          done
+          files=(images/*.png images/*.jpg images/*.pdf)
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "${files[@]}" --clobber
             gh release edit "$TAG" --notes-file notes.md

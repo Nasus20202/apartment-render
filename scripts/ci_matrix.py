@@ -2,6 +2,7 @@
 
 python3 scripts/ci_matrix.py            # JSON for `matrix: ${{ fromJSON(...) }}`
 python3 scripts/ci_matrix.py --evening  # evening camera names, space separated (Makefile)
+python3 scripts/ci_matrix.py --views    # camera view image names (no plan), space separated
 """
 
 import json
@@ -37,9 +38,15 @@ def evening_cams(cfg):
     return [j["cams"] for j in jobs(cfg) if j["mode"] == "evening"]
 
 
+def view_names(cfg):
+    return [j["name"] for j in jobs(cfg) if not j["plan"]]
+
+
 if __name__ == "__main__":
     cfg = json.loads((ROOT / "data" / "cameras.json").read_text())
     if "--evening" in sys.argv:
         print(" ".join(evening_cams(cfg)))
+    elif "--views" in sys.argv:
+        print(" ".join(view_names(cfg)))
     else:
         print(json.dumps({"include": jobs(cfg)}))
