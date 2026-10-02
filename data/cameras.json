@@ -1,6 +1,6 @@
 {
   "_note": "Eye-level interior cameras: location and look-at target in world metres, lens in mm on a 36 mm sensor. Vertical lines stay vertical: cameras are kept level and framing uses shift_y instead of tilt.",
-  "evening_skip": ["bathroom_shower", "bathroom_vanity"],
+  "evening_skip": [],
   "cameras": {
     "living_hero": {
       "loc": [3.45, 3.25, 1.4],
