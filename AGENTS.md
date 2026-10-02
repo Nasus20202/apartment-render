@@ -27,8 +27,8 @@ This is a photoreal, dimensionally accurate Blender model of a real flat, built 
 ## Running Blender
 
 - Use a Blender 5.2 build with working OpenColorIO 2.5: `make <target> BLENDER=~/.local/opt/blender-5.2.2-linux-x64/blender`. The Fedora `blender` package can't load its own OCIO config ("AgX not found").
-- Render **one camera per Blender process**. HIP on the 8 GB card faults after a few renders in one process. The Makefile already loops per camera.
-- Previews: `--samples 48 --scale 50` take about 35 s a view. Finals: the Makefile default of 512 samples (adaptive, with OpenImageDenoise) at full size; don't lower `SAMPLES` for a final set. Run long jobs in the background and don't restart them automatically if they are killed.
+- Render **one camera per Blender process** for finals. HIP on the 8 GB card faults after a few renders in one process. The Makefile already loops per camera. `make preview` is the exception: it runs `PREVIEW_CHUNK` (4) views per process with persistent data. If a preview run faults, lower `PREVIEW_CHUNK`.
+- Previews: `--samples 48 --scale 50` take about 35 s a view. Finals: the Makefile default of 256 samples (adaptive, with OpenImageDenoise) at full size; don't lower `SAMPLES` for a final set. Run long jobs in the background and don't restart them automatically if they are killed.
 - Kill stray renders by PID (`pgrep -f "blender -b"`). `pkill -f '<pattern>'` also matches the shell that runs it.
 
 ## Before you commit
@@ -37,4 +37,4 @@ This is a photoreal, dimensionally accurate Blender model of a real flat, built 
 - `make layout` reports all `OK`.
 - `make interior` builds without a traceback, and the views you touched were rendered and checked.
 - The docs still describe the code: update `docs/furniture.md` for new generators or parameters, and `docs/flat.md` for new measurements or confirmed heights.
-- Commit `renders/interior/` and `blender/apartment.blend` only for a final render set.
+- Don't commit renders: `renders/` is gitignored. The final images and plans are published as a GitHub release by the `Render` workflow (Actions tab, manual run).

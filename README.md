@@ -23,7 +23,7 @@ make all        # shell -> layout -> assets -> interior -> render
 | Assets                | `make assets`                                                                  | `assets/` (CC0, gitignored, ~420 MB)                                    |
 | Interior              | `make interior`                                                                | `blender/apartment.blend`                                               |
 | Technical plan        | `make technical`                                                               | `renders/technical_plan.pdf` + PNGs (no Blender)                        |
-| Renders               | `make render` / `make evening` / `make preview` (one Blender process per view) | `renders/interior/`, `renders/preview/`                                 |
+| Renders               | `make render` / `make evening` / `make preview` (one Blender process per view); finals also via the **Render** workflow, published as releases | `renders/` (untracked)                                 |
 
 Requires Blender 5.2 (`make ... BLENDER=/path/to/blender`; the Fedora package can't load its OCIO config, see [usage](docs/usage.md#setup)) and `uv` (`uv sync`). Cycles uses the GPU through HIP when available and falls back to the CPU. The `.blend` files are build outputs and are not in git. `make lint`, `make fmt` and `make test` need no Blender. To walk through the result, see [usage](docs/usage.md#walking-through-it-in-blender).
 
@@ -36,7 +36,7 @@ Requires Blender 5.2 (`make ... BLENDER=/path/to/blender`; the Fedora package ca
 | `data/decor.json`      | Decor placements.                                                                                                                                                                                                                                |
 | `data/electrical.json` | Sockets, switches, data, water and drain points on the walls, with heights; each is `plan` or `proposed`, with `h_assumed` where the height is not printed. Drawn on sheet 3 of the technical plan.                                              |
 | `data/lighting.json`   | Ceiling fixtures, each hung on a light outlet from the installation plan.                                                                                                                                                                        |
-| `data/cameras.json`    | Interior viewpoints with optional per-view exposure. `"lamps": true` lights windowless rooms in daytime shots.                                                                                                                                   |
+| `data/cameras.json`    | Interior viewpoints (location, target, lens, vertical shift).                                                                                                                                                                                 |
 | `data/site.json`       | Render date and time (drives the sun) and the courtyard seen from the windows.                                                                                                                                                                   |
 | `data/assets.json`     | Third-party assets: Poly Haven models and HDRI, ambientCG materials (CC0), public-domain botanical prints from Wikimedia Commons.                                                                                                                |
 

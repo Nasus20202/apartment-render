@@ -1,0 +1,164 @@
+name: Render
+
+# Final render set on CPU (hosted runners have no GPU): one job per view, then one job that
+# publishes every image as a GitHub release. Started by hand from the Actions tab.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (an existing release with this tag gets its images replaced)
+        required: true
+        default: renders
+      samples:
+        description: Cycles samples per pixel
+        required: true
+        default: "256"
+
+permissions:
+  contents: read
+
+env:
+  # renovate: datasource=github-tags depName=blender/blender extractVersion=^v(?<version>.+)$
+  BLENDER_VERSION: "5.2.2"
+
+concurrency:
+  group: render-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      jobs: ${{ steps.list.outputs.jobs }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: list
+        run: echo "jobs=$(python3 scripts/ci_matrix.py)" >> "$GITHUB_OUTPUT"
+      - name: Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
+      - uses: BradyAJohnston/setup-blender@v5.1.0
+        with:
+          version: ${{ env.BLENDER_VERSION }}
+      # Saved when this job ends; every render job restores it instead of downloading the assets again
+      - uses: actions/cache@v6
+        with:
+          path: assets
+          key: assets-${{ hashFiles('data/assets.json') }}
+      - name: Fetch assets
+        run: make assets
+      - name: Build the scene once for every view
+        run: make interior
+      - uses: actions/upload-artifact@v7
+        with:
+          name: scene
+          path: blender/apartment.blend
+          if-no-files-found: error
+
+  render:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.build.outputs.jobs) }}
+    name: render ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
+      - uses: BradyAJohnston/setup-blender@v5.1.0
+        with:
+          version: ${{ env.BLENDER_VERSION }}
+      - uses: actions/cache/restore@v6
+        with:
+          path: assets
+          key: assets-${{ hashFiles('data/assets.json') }}
+          fail-on-cache-miss: true
+      - uses: actions/download-artifact@v8
+        with:
+          name: scene
+          path: blender
+      - name: Render ${{ matrix.name }}
+        run: |
+          start=$SECONDS
+          args=(--cams "${{ matrix.cams }}" --samples "${{ inputs.samples }}" --out renders/ci)
+          if [ "${{ matrix.plan }}" = "true" ]; then args+=(--plan); else args+=(--mode "${{ matrix.mode }}"); fi
+          blender -b blender/apartment.blend -P scripts/render.py -- "${args[@]}"
+          echo "${{ matrix.name }} ${{ matrix.mode }} $((SECONDS - start))" > "renders/ci/${{ matrix.name }}.time"
+          ls -l renders/ci
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.name }}
+          path: |
+            renders/ci/${{ matrix.file }}
+            renders/ci/${{ matrix.name }}.time
+          if-no-files-found: error
+
+  plans:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
+      - uses: BradyAJohnston/setup-blender@v5.1.0
+        with:
+          version: ${{ env.BLENDER_VERSION }}
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+          cache-python: true
+      - run: uv sync --locked
+      - name: Shell, layout, overlay and technical plan
+        run: |
+          start=$SECONDS
+          make shell layout verify technical
+          mkdir -p renders/out
+          cp renders/*.png renders/*.pdf renders/out/
+          echo "plans-and-overviews docs $((SECONDS - start))" > renders/out/plans.time
+          ls -l renders/out
+      - uses: actions/upload-artifact@v7
+        with:
+          name: plans
+          path: renders/out/*
+          if-no-files-found: error
+
+  release:
+    needs: [render, plans]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          path: images
+          merge-multiple: true
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          started=$(gh api "repos/$GH_REPO/actions/runs/$GITHUB_RUN_ID" --jq .run_started_at)
+          python3 scripts/ci_release_notes.py images --samples "${{ inputs.samples }}" \
+            --sha "${GITHUB_SHA::7}" --started "$started" > notes.md
+          cat notes.md
+          files=(images/*.png images/*.pdf)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "${files[@]}" --clobber
+            gh release edit "$TAG" --notes-file notes.md
+          else
+            gh release create "$TAG" "${files[@]}" --target "$GITHUB_SHA" --title "$TAG" --notes-file notes.md
+          fi

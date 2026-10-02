@@ -1,5 +1,5 @@
 BLENDER ?= blender
-SAMPLES ?= 512
+SAMPLES ?= 256
 
 .PHONY: all shell verify layout assets interior render preview evening tiles technical lint fmt test
 
@@ -27,12 +27,14 @@ render:   ## Final daylight views + furnished plan -> renders/interior/
 	for c in $(CAMS); do $(BLENDER) -b blender/apartment.blend -P scripts/render.py -- --cams $$c --samples $(SAMPLES) || exit 1; done
 	$(BLENDER) -b blender/apartment.blend -P scripts/render.py -- --cams none --samples $(SAMPLES) --plan
 
-EVENING_CAMS ?= living_hero living_tv kitchen_island bedroom_door
+EVENING_CAMS ?= $(shell python3 scripts/ci_matrix.py --evening)
 evening:  ## Evening views with lamps on
 	for c in $(EVENING_CAMS); do $(BLENDER) -b blender/apartment.blend -P scripts/render.py -- --mode evening --cams $$c --samples $(SAMPLES) || exit 1; done
 
-preview:  ## Fast half-size previews -> renders/preview/
-	for c in $(CAMS); do $(BLENDER) -b blender/apartment.blend -P scripts/render.py -- --cams $$c --samples 48 --scale 50 --out renders/preview || exit 1; done
+PREVIEW_CHUNK ?= 4
+MODE ?= day
+preview:  ## Fast half-size previews, PREVIEW_CHUNK views per process with persistent data (MODE=evening for lamps on) -> renders/preview/
+	for g in $$(echo $(CAMS) | xargs -n $(PREVIEW_CHUNK) | tr ' ' ','); do $(BLENDER) -b blender/apartment.blend -P scripts/render.py -- --mode $(MODE) --cams $$g --samples 48 --scale 50 --out renders/preview || exit 1; done
 
 tiles:    ## Debug: plot PDF vectors on a point grid, e.g. make tiles ARGS="t.png,335,600,170,300"
 	uv run -q python scripts/plan_tiles.py $(ARGS)

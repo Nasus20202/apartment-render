@@ -19,9 +19,9 @@ make verify     # overlay the plan render on the PDF                   -> render
 make layout     # furniture placeholders + clearance report            -> renders/layout_proposal.png
 make assets     # download assets (idempotent)                         -> assets/
 make interior   # furnished, lit scene                                 -> blender/apartment.blend
-make preview    # every view at half size, 48 samples (~35 s each)     -> renders/preview/
-make render     # every view at 1800x1200, 512 samples + the furnished plan -> renders/interior/
-make evening    # evening views, lamps on                              -> renders/interior/*_evening.png
+make preview    # every view at half size, 48 samples, 4 views per process (MODE=evening for lamps on) -> renders/preview/
+make render     # every view at 1800x1200, 256 samples + the furnished plan -> renders/interior/
+make evening    # evening views, lamps on (not the bathrooms)                            -> renders/interior/*_evening.png
 make technical  # dimensioned A3 plan, 3 sheets, no Blender needed   -> renders/technical_plan.pdf
 make all        # shell layout assets interior render
 ```
@@ -55,23 +55,34 @@ Dimensions are mm rounded to 10, from the plan's vectors (about ±20 mm). Height
 | Option                | Default                    |                                                                   |
 | --------------------- | -------------------------- | ----------------------------------------------------------------- |
 | `--cams a,b`          | every camera except `walk` | `none` renders no views (use with `--plan`)                       |
-| `--samples N`         | 256                        | Makefile targets pass 512 (`SAMPLES=`)                            |
+| `--samples N`         | 256                        | Makefile targets use the same (`SAMPLES=`)                            |
 | `--scale PCT`         | 100                        | Percentage of 1800 × 1200                                         |
-| `--mode day\|evening` | day                        | Evening turns the sun off, dims the sky and switches the lamps on |
+| `--mode day\|evening` | day                        | Day is the sun and sky only at one shared exposure (3.0 EV). Evening turns the sun off, dims the sky, switches the lamps on and exposes at 0.5 EV |
 | `--out DIR`           | `renders/interior`         |                                                                   |
 | `--plan`              | off                        | Also renders the furnished top-down plan                          |
+| `--exposure EV`       | per mode                   | Overrides the exposure, for tuning                                |
 
-The Makefile starts **one Blender process per view**. On the 8 GB RX 5700, HIP crashes with "Memory access fault by GPU" after a few renders in one process, so don't render several cameras in one call for the finals. To render a subset, run `make render CAMS="bedroom_bed bathroom_vanity"`.
+The Makefile starts **one Blender process per view**. On the 8 GB RX 5700, HIP crashes with "Memory access fault by GPU" after a few renders in one process, so don't render several cameras in one call for the finals. Previews run `PREVIEW_CHUNK` (default 4) views per Blender process with persistent data, which keeps the BVH and textures between views. To render a subset, run `make render CAMS="bedroom_bed bathroom_vanity"`.
+
+### Final renders on GitHub Actions
+
+`renders/` is not tracked. The **Render** workflow (`.github/workflows/render.yml`, started by hand from the Actions tab with a release tag and a sample count) renders the final set on the hosted CPU runners and publishes it as a release:
+
+- `scripts/ci_matrix.py` lists the jobs: every day view, every evening view except those in `evening_skip` (`data/cameras.json`), and the furnished plan. A `build` job fetches the assets (saved to the Actions cache) and builds the scene once (`make interior`); every render job restores the assets and the `.blend` and renders one view in its own runner.
+- A `plans` job builds the shell, the layout, the PDF overlay and the technical plan (`make shell layout verify technical`).
+- Every job records its duration. A last job downloads all images and the plans, builds the release description (`scripts/ci_release_notes.py`: wall-clock time, total job time and a per-job table) and creates the release for the tag, or replaces the files of an existing one.
+- The Blender version is `BLENDER_VERSION` at the top of the workflow; Renovate updates it.
+- The runners have no GPU, so `pick_device()` falls back to the CPU: expect each view to take well over an hour at 256 samples. Cycles memory use on the 16 GB runners has not been measured; check the first run.
 
 ### Cameras (`data/cameras.json`)
 
 ```json
-"bedroom_bed": { "loc": [4.4, 5.25, 1.45], "target": [7.0, 5.25, 1.4], "lens": 17, "shift_y": -0.02, "exposure": 2.6 }
+"bedroom_bed": { "loc": [4.4, 5.25, 1.45], "target": [7.0, 5.25, 1.4], "lens": 17, "shift_y": -0.02 }
 ```
 
-`loc` and `target` are world metres. Cameras are kept level and yaw toward the target, so vertical lines stay vertical. Use `shift_y` to frame higher or lower instead of tilting. `lens` is in mm on a 36 mm sensor (16–20 mm suits these rooms). `exposure` overrides the scene's 2.0 EV, which interiors under the real sun need. `"lamps": true` switches the lamps on in daylight, for the windowless bathroom and hall. `walk` is for walking around in Blender and is never rendered.
+`loc` and `target` are world metres. Cameras are kept level and yaw toward the target, so vertical lines stay vertical. Use `shift_y` to frame higher or lower instead of tilting. `lens` is in mm on a 36 mm sensor (16–20 mm suits these rooms). Every day view shares the scene's 3.0 EV, so rooms can be compared fairly (there are no per-view exposures or lamps by day; the lamps are for the evening set). `walk` is for walking around in Blender and is never rendered.
 
-Current views: `living_hero`, `living_tv`, `living_balcony`, `balcony`, `kitchen_island`, `kitchen_u`, `hall_entrance`, `hall_kitchen`, `bedroom_door`, `bedroom_window`, `bedroom_bed`, `bedroom_desk`, `bathroom_shower`, `bathroom_vanity`.
+Current views: `living_hero`, `living_tv`, `living_balcony`, `kitchen_island`, `kitchen_u`, `hall_entrance`, `hall_kitchen`, `bedroom_door`, `bedroom_window`, `bedroom_bed`, `bedroom_desk`, `bathroom_shower`, `bathroom_vanity`.
 
 ### Sun and time of day
 
@@ -101,4 +112,4 @@ Open `blender/apartment.blend`, switch the viewport to _Material Preview_ or _Re
 | `Memory access fault by GPU`           | Several renders in one HIP process. Render one camera per process, as the Makefile does.          |
 | Black patches on furniture             | Two boxes overlap with coplanar faces. Make parts butt against each other instead of overlapping. |
 | A Poly Haven model is missing          | `make assets` (the console prints `FAILED <id>` for downloads that failed)                        |
-| The interior looks dark by day         | Realistic: the balcony roof shades the living room. Raise that camera's `exposure`.               |
+| The interior looks dark by day         | Realistic: the balcony roof shades the living room. Raise `DAY_SKY_FILL` in `scripts/modes.py` or the exposure in `render_settings()`. |

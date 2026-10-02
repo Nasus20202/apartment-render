@@ -11,5 +11,17 @@
       ],
       "automerge": true
     }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Blender version used by the Render workflow",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/render\\.yml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) extractVersion=(?<extractVersion>\\S+)\\n\\s+BLENDER_VERSION: \"(?<currentValue>[^\"]+)\""
+      ]
+    }
   ]
 }
