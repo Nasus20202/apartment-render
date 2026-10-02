@@ -51,7 +51,7 @@ jobs:
       - name: Fetch assets
         run: make assets
       - name: Build the scene once for every view
-        run: make interior
+        run: make shell interior
       - uses: actions/upload-artifact@v7
         with:
           name: scene
@@ -90,7 +90,7 @@ jobs:
           start=$SECONDS
           args=(--cams "${{ matrix.cams }}" --samples "${{ inputs.samples }}" --out renders/ci)
           if [ "${{ matrix.plan }}" = "true" ]; then args+=(--plan); else args+=(--mode "${{ matrix.mode }}"); fi
-          blender -b blender/apartment.blend -P scripts/render.py -- "${args[@]}"
+          blender -b blender/apartment.blend --python-exit-code 1 -P scripts/render.py -- "${args[@]}"
           echo "${{ matrix.name }} ${{ matrix.mode }} $((SECONDS - start))" > "renders/ci/${{ matrix.name }}.time"
           ls -l renders/ci
       - uses: actions/upload-artifact@v7

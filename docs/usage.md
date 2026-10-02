@@ -68,7 +68,7 @@ The Makefile starts **one Blender process per view**. On the 8 GB RX 5700, HIP c
 
 `renders/` is not tracked. The **Render** workflow (`.github/workflows/render.yml`, started by hand from the Actions tab with a release tag and a sample count) renders the final set on the hosted CPU runners and publishes it as a release:
 
-- `scripts/ci_matrix.py` lists the jobs: every day view, every evening view except those in `evening_skip` (`data/cameras.json`), and the furnished plan. A `build` job fetches the assets (saved to the Actions cache) and builds the scene once (`make interior`); every render job restores the assets and the `.blend` and renders one view in its own runner.
+- `scripts/ci_matrix.py` lists the jobs: every day view, every evening view except those in `evening_skip` (`data/cameras.json`), and the furnished plan. A `build` job fetches the assets (saved to the Actions cache) and builds the scene once (`make shell interior`); every render job restores the assets and the `.blend` and renders one view in its own runner.
 - A `plans` job builds the shell, the layout, the PDF overlay and the technical plan (`make shell layout verify technical`).
 - Every job records its duration. A last job downloads all images and the plans, builds the release description (`scripts/ci_release_notes.py`: wall-clock time, total job time and a per-job table) and creates the release for the tag, or replaces the files of an existing one.
 - The Blender version is `BLENDER_VERSION` at the top of the workflow; Renovate updates it.
