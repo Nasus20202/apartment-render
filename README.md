@@ -4,15 +4,34 @@ A dimensionally accurate, photoreal Blender model of flat 19, building 18, WiszÄ
 
 ## Renders
 
-Day views are natural sunlight only; evening views are lit by the lamps. The images are built by the **Render** workflow and published as the latest [release](https://github.com/Nasus20202/apartment-render/releases/latest), with every other view and the plans: [technical plan (PDF)](https://github.com/Nasus20202/apartment-render/releases/latest/download/technical_plan.pdf), [furnished plan](https://github.com/Nasus20202/apartment-render/releases/latest/download/plan_furnished.png).
+Day views are natural sunlight only; evening views are lit by the lamps. The images are built by the **Render** workflow and published as the latest [release](https://github.com/Nasus20202/apartment-render/releases/latest), which also has the shell overviews and the layout proposal.
 
 | View | Day | Evening |
 | --- | --- | --- |
 | Living room | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_hero.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_hero_evening.png" width="420"> |
 | Kitchen and island | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/kitchen_island.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/kitchen_island_evening.png" width="420"> |
-| Hall and kitchen | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_kitchen.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_kitchen_evening.png" width="420"> |
-| Bedroom | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_bed.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_bed_evening.png" width="420"> |
+| Kitchen | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/kitchen_u.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/kitchen_u_evening.png" width="420"> |
 | Media wall | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_tv.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_tv_evening.png" width="420"> |
+| Hall, entrance | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_entrance.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_entrance_evening.png" width="420"> |
+| Bedroom, from the door | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_door.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_door_evening.png" width="420"> |
+| Bedroom, window | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_window.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_window_evening.png" width="420"> |
+| Bathroom, shower | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bathroom_shower.png" width="420"> | not rendered (no evening lighting) |
+| Bathroom, vanity | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bathroom_vanity.png" width="420"> | not rendered (no evening lighting) |
+| Living room, balcony door | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_balcony.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/living_balcony_evening.png" width="420"> |
+| Hall, towards the kitchen | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_kitchen.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/hall_kitchen_evening.png" width="420"> |
+| Bedroom, bed | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_bed.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_bed_evening.png" width="420"> |
+| Bedroom, desk | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_desk.png" width="420"> | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/bedroom_desk_evening.png" width="420"> |
+
+### Plans
+
+The vector version is the [technical plan PDF](https://github.com/Nasus20202/apartment-render/releases/latest/download/technical_plan.pdf).
+
+| Plan | |
+| --- | --- |
+| Furnished plan | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/plan_furnished.png" width="420"> |
+| Technical plan, dimensions | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/technical_plan_dimensions.png" width="420"> |
+| Technical plan, fit-out | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/technical_plan_fitout.png" width="420"> |
+| Technical plan, services | <img src="https://github.com/Nasus20202/apartment-render/releases/latest/download/technical_plan_services.png" width="420"> |
 
 | Docs                                   |                                                                                                                            |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
