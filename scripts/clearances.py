@@ -7,7 +7,13 @@ def clearance_checks(items):
     items: the "items" list of data/furniture.json. Every measured value must be >= its minimum.
     """
     f = {it["id"]: it["footprint"] for it in items}
+    hob_at = next(it for it in items if it["id"] == "kitchen_base_south")["params"]["hob_at"]
     return [
+        (
+            "Fridge -> hob and oven (small cabinet between, 60 cm hob)",
+            hob_at - 0.30 - f["fridge"][1],
+            0.25,
+        ),
         ("U aisle: south counter/fridge -> peninsula", f["peninsula"][2] - f["fridge"][3], 0.90),
         ("Entry walkway: counter end -> partition", 4.054 - f["peninsula"][1], 0.90),
         ("Entrance door swing (to Y 1.05) -> counter", f["peninsula"][2] - 1.05, 0.0),
@@ -27,6 +33,8 @@ def clearance_checks(items):
             0.60,
         ),
         ("Fridge front -> peninsula (U aisle)", f["peninsula"][2] - f["fridge"][3], 0.90),
+        ("Slat screen -> intercom plate (model X 2.77)", 2.77 - f["slat_screen"][1], 0.02),
+        ("Intercom plate -> entrance opening (X 2.904)", 2.904 - 2.87, 0.02),
         ("South run end -> entrance opening (X 2.904)", 2.904 - f["kitchen_base_south"][1], 0.0),
         (
             "Footrest -> balcony leaf hinge (radius 0.84)",

@@ -24,6 +24,7 @@ import build_shell as shell  # noqa: E402
 import furniture as F  # noqa: E402
 import materials  # noqa: E402
 import modes  # noqa: E402
+import wall_points  # noqa: E402
 
 ROOT = shell.ROOT
 DATA = shell.DATA
@@ -32,6 +33,7 @@ DECOR = json.loads((ROOT / "data" / "decor.json").read_text())
 CAMS = json.loads((ROOT / "data" / "cameras.json").read_text())["cameras"]
 SITE = json.loads((ROOT / "data" / "site.json").read_text())
 LIGHTING = json.loads((ROOT / "data" / "lighting.json").read_text())
+ELEC = json.loads((ROOT / "data" / "electrical.json").read_text())["points"]
 PH = ROOT / "assets" / "polyhaven"
 CEIL = shell.CEIL
 X, Y = shell.X, shell.Y
@@ -548,6 +550,16 @@ def furniture():
             ]
 
 
+def electrical():
+    """Plates for the switch, socket, data and intercom points that are not behind furniture."""
+    coll = S["electrical"]
+    visible, hidden = wall_points.plates(ELEC, FURN["items"])
+    for p in visible:
+        at, face = wall_points.pose(p)
+        F.wall_plate(p, at, face, F.empty("Plate_" + p["id"], coll))
+    print(f"Wall plates: built {[p['id'] for p in visible]}; behind furniture, not built: {hidden}")
+
+
 def decor():
     c = S["decor"]
     for i, d in enumerate(DECOR["items"]):
@@ -860,7 +872,14 @@ def world_and_sun():
     bg_view = nodes.new("ShaderNodeBackground")
     links.new(clamp.outputs["Vector"], bg_light.inputs["Color"])
     links.new(env.outputs["Color"], bg_view.inputs["Color"])
-    links.new(strength.outputs[0], bg_light.inputs["Strength"])
+    fill = nodes.new("ShaderNodeValue")
+    fill.name = "World_Fill"
+    fill.outputs[0].default_value = 1.0
+    light_strength = nodes.new("ShaderNodeMath")
+    light_strength.operation = "MULTIPLY"
+    links.new(strength.outputs[0], light_strength.inputs[0])
+    links.new(fill.outputs[0], light_strength.inputs[1])
+    links.new(light_strength.outputs[0], bg_light.inputs["Strength"])
     links.new(strength.outputs[0], bg_view.inputs["Strength"])
     lp = nodes.new("ShaderNodeLightPath")
     mx = nodes.new("ShaderNodeMath")
@@ -883,6 +902,48 @@ def world_and_sun():
     to_sun = Vector((math.cos(el) * math.cos(az), math.cos(el) * math.sin(az), math.sin(el)))
     so.rotation_euler = to_sun.to_track_quat("Z", "Y").to_euler()
     S["lights"].objects.link(so)
+    window_portals()
+
+
+# Exterior openings: (id, inward normal). Frame extents come from the jambs and head built by build_shell.
+PORTALS = (
+    ("O_living_balcony", (0, -1, 0)),
+    ("O_bedroom_window", (0, -1, 0)),
+    ("O_bedroom_balcony", (1, 0, 0)),
+)
+
+
+def window_portals():
+    """Light portals in the glazed openings: sky light is sampled through the windows instead of from the
+    whole HDRI, so daylit rooms converge with far fewer samples and the same look."""
+
+    def bounds(name):
+        pts = [Vector(c) for c in bpy.data.objects[name].bound_box]
+        mw = bpy.data.objects[name].matrix_world
+        pts = [mw @ p for p in pts]
+        return [(min(p[i] for p in pts), max(p[i] for p in pts)) for i in range(3)]
+
+    for oid, normal in PORTALS:
+        ja, jb, head = (bounds(f"{oid}_{n}") for n in ("jamb_a", "jamb_b", "head"))
+        n = Vector(normal)
+        ax = (
+            0 if normal[0] == 0 else 1
+        )  # axis along the wall: x for north walls, y for the west wall
+        (_, lo), (hi, _) = sorted((ja[ax], jb[ax]))  # inner faces of the two jambs
+        z0, z1 = ja[2][0], head[2][0]
+        depth_ax = 1 - ax
+        wall_out = ja[depth_ax][1] if n[depth_ax] < 0 else ja[depth_ax][0]
+        loc = [0, 0, (z0 + z1) / 2]
+        loc[ax] = (lo + hi) / 2
+        loc[depth_ax] = wall_out
+        light = bpy.data.lights.new(f"Portal_{oid}", "AREA")
+        light.shape = "RECTANGLE"
+        light.size, light.size_y = hi - lo, z1 - z0
+        light.cycles.is_portal = True
+        obj = bpy.data.objects.new(f"Portal_{oid}", light)
+        obj.location = loc
+        obj.rotation_euler = n.to_track_quat("-Z", "Y").to_euler()
+        S["lights"].objects.link(obj)
 
 
 def exterior(L):
@@ -1177,7 +1238,7 @@ def render_settings():
     scene.view_settings.view_transform = "AgX"
     scene.view_settings.look = "AgX - Medium High Contrast"
     scene.view_settings.exposure = (
-        2.0  # interiors are exposed like a real camera would: ~+1.5 EV over the sky
+        3.0  # one natural daylight exposure for every view, so the rooms compare fairly
     )
     scene.render.film_transparent = False
     # Viewport: material preview is the comfortable mode for walking around
@@ -1201,6 +1262,7 @@ def main():
     S["doors"] = shell.collection("Doors", S["arch"])
     S["furniture"] = shell.collection("Furniture")
     S["decor"] = shell.collection("Decor")
+    S["electrical"] = shell.collection("Electrical")
     S["textiles"] = shell.collection("Textiles")
     S["lights"] = shell.collection("Lighting")
     S["cams"] = bpy.data.collections["Cameras_Lights"]
@@ -1216,6 +1278,7 @@ def main():
     finishes(L)
     doors(L)
     furniture()
+    electrical()
     decor()
     curtains(L)
     lights(L)

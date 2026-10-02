@@ -607,25 +607,34 @@ def peninsula(item, root):
     # The first 60 cm sit behind the oven column's end: a blind corner with a plain panel
     zf0, zf1 = PLINTH, top_z - tt
     corner = 0.60
-    dw0, dw1 = p.get("dishwasher", (corner, corner + 0.6))
     box(n + "_blind", 0.0, corner, -FRONT_T, 0, zf0 + GAP, zf1 - GAP, M["oak"], root)
-    if dw0 - corner > 0.15:
-        _drawer_stack(n + "_drawers_a", corner, dw0, zf0, zf1, root)
-    box(
-        n + "_dwfront",
-        dw0 + GAP,
-        dw1 - GAP,
-        -FRONT_T,
-        0,
-        zf0 + GAP,
-        zf1 - GAP,
-        M["oak"],
-        root,
-        bev=0.0015,
-    )
-    _pull(n + "_dwpull", (dw0 + dw1) / 2, zf1 - 0.05, root)
-    if cab_to - dw1 > 0.15:
-        _drawer_stack(n + "_drawers_b", dw1, cab_to, zf0, zf1, root)
+    if "dishwasher" in p:
+        dw0, dw1 = p["dishwasher"]
+        if dw0 - corner > 0.15:
+            _drawer_stack(n + "_drawers_a", corner, dw0, zf0, zf1, root)
+        box(
+            n + "_dwfront",
+            dw0 + GAP,
+            dw1 - GAP,
+            -FRONT_T,
+            0,
+            zf0 + GAP,
+            zf1 - GAP,
+            M["oak"],
+            root,
+            bev=0.0015,
+        )
+        _pull(n + "_dwpull", (dw0 + dw1) / 2, zf1 - 0.05, root)
+        rest = dw1
+    else:  # no appliance: ordinary drawer stacks, at most 60 cm wide
+        k = max(1, round((cab_to - corner) / 0.60))
+        for i in range(k):
+            x0 = corner + (cab_to - corner) * i / k
+            x1 = corner + (cab_to - corner) * (i + 1) / k
+            _drawer_stack(f"{n}_drawers{i}", x0, x1, zf0, zf1, root)
+        rest = cab_to
+    if cab_to - rest > 0.15:
+        _drawer_stack(n + "_drawers_b", rest, cab_to, zf0, zf1, root)
     # Counter over the cabinets; past them the same stone steps down to table height and runs to the
     # waterfall end, open beneath. A stone end panel closes the cabinets where the step is.
     # The dining part (table, its end panel and the waterfall leg) can be solid oak instead of stone.
@@ -703,8 +712,7 @@ def partition(item, root):
 
 def slat_screen(item, root):
     """Openwork (Polish "ażurowa") room divider: vertical oak slats floor to ceiling, with gaps you see
-    through, held by a slim floor rail and ceiling rail. Slats run along the item's width; params.solid_end
-    makes the first metres (by the wall) a solid post for switches."""
+    through, held by a slim floor rail and ceiling rail. Slats run along the item's width."""
     w, d = frame_dims(item)
     p = item.get("params", {})
     n = item["id"]
@@ -713,12 +721,8 @@ def slat_screen(item, root):
     rail = 0.03
     box(n + "_floor_rail", 0, w, 0, d, 0.0, rail, mat, root, bev=0.002)
     box(n + "_ceiling_rail", 0, w, 0, d, CEIL - rail, CEIL, mat, root, bev=0.002)
-    # Optional solid post at the local x = 0 end (by the wall) to carry switches and the intercom
-    post = p.get("solid_end", 0.0)
-    if post:
-        box(n + "_post", 0, post, 0, d, rail, CEIL - rail, mat, root, bev=0.003)
-    k = max(1, int((w - post + gap) // (sw + gap)))
-    x = post + gap + (w - post - gap - (k * sw + (k - 1) * gap)) / 2
+    k = max(1, int((w + gap) // (sw + gap)))
+    x = (w - (k * sw + (k - 1) * gap)) / 2
     for i in range(k):
         box(f"{n}_slat{i}", x, x + sw, 0.0, d, rail, CEIL - rail, mat, root, bev=0.003)
         x += sw + gap
@@ -2269,6 +2273,77 @@ def towel_rail(item, root):
         res=0.02,
     )
     t.location.z = 0
+
+
+# ---------------------------------------------------------------- wall plates
+
+PLATE_D = 0.010  # plate thickness
+PLATE_W = 0.080  # one gang; a double socket is two gangs wide, double switches are two gangs tall
+FACE_NORMAL = {"+x": (1, 0), "-x": (-1, 0), "+y": (0, 1), "-y": (0, -1)}
+FACE_TILT = {
+    "+y": ("x", -1),
+    "-y": ("x", 1),
+    "+x": ("y", 1),
+    "-x": ("y", -1),
+}  # rotation turning Z to the normal
+
+
+def wall_plate(p, at, face, root):
+    """Switch, socket, data or intercom plate flat on a wall. at is the point on the wall face, face the way
+    it looks into the room, p['h'] the height of its centre. Built in world coordinates under root."""
+    kind, h = p["kind"], p["h"]
+    nx, ny = FACE_NORMAL[face]
+    tx, ty = abs(ny), abs(nx)  # unit vector along the wall
+
+    def slab(name, t0, t1, z0, z1, d0, d1, mat, bev=0.0):
+        xs = sorted((at[0] + nx * d0 + tx * t0, at[0] + nx * d1 + tx * t1))
+        ys = sorted((at[1] + ny * d0 + ty * t0, at[1] + ny * d1 + ty * t1))
+        return box(name, xs[0], xs[1], ys[0], ys[1], h + z0, h + z1, mat, root, bev)
+
+    def disc(name, t, z, r, thick, mat):
+        o = cyl(name, 0, 0, -thick / 2, thick / 2, r, mat, root, segs=24)
+        axis, sign = FACE_TILT[face]
+        setattr(o.rotation_euler, axis, sign * math.pi / 2)
+        d = PLATE_D + thick / 2
+        o.location = (at[0] + nx * d + tx * t, at[1] + ny * d + ty * t, h + z)
+        return o
+
+    n = p["id"]
+    if kind == "intercom":
+        slab(n + "_body", -0.05, 0.05, -0.08, 0.08, 0, 0.030, M["graphite"], bev=0.004)
+        slab(n + "_speaker", -0.03, 0.03, 0.035, 0.065, 0.030, 0.032, M["black_metal"])
+        return
+    if kind == "switch":  # double switch in a vertical frame; rockers are the two raised keys
+        slab(
+            n + "_plate",
+            -PLATE_W / 2,
+            PLATE_W / 2,
+            -PLATE_W,
+            PLATE_W,
+            0,
+            PLATE_D,
+            M["pvc"],
+            bev=0.002,
+        )
+        for i, z in enumerate((-PLATE_W / 2, PLATE_W / 2)):
+            slab(
+                f"{n}_key{i}",
+                -0.028,
+                0.028,
+                z - 0.028,
+                z + 0.028,
+                PLATE_D,
+                PLATE_D + 0.004,
+                M["pvc"],
+                bev=0.002,
+            )
+        return
+    gangs = 1 if kind in ("socket", "socket400") else 2
+    half = PLATE_W * gangs / 2
+    slab(n + "_plate", -half, half, -PLATE_W / 2, PLATE_W / 2, 0, PLATE_D, M["pvc"], bev=0.002)
+    r = 0.022 if kind == "socket400" else 0.016
+    for i in range(gangs):
+        disc(f"{n}_socket{i}", -half + PLATE_W * (i + 0.5), 0, r, 0.003, M["black_metal"])
 
 
 GENERATORS = {

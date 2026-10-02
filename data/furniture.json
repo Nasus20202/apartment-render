@@ -1,6 +1,6 @@
 {
   "_coords": "Metres in the Blender frame from data/floorplan.json (origin = inner SW corner of the living room, +Y = plan up). footprint = [xmin, xmax, ymin, ymax]; z = [bottom, top]; facing = the direction the item's front faces (+x, -x, +y, -y).",
-  "_anchors": "Placement follows the installation points on the developer plan. Positions in metres: living TV/SAT/INT + socket on the partition wall at Y~5.3; living sockets on the west wall at Y~3.5 and ~6.0; kitchen sink water ~Y1.6 and dishwasher socket Y1.84 on the west wall; hob 400V outlet X~1.5 and hood socket X1.32 on the south wall; fridge socket X2.24; bedroom sockets on the east wall at Y~5.25 and ~7.05; bathroom WC frame X5.72, basin Y~1.64, washing machine socket h=70 Y0.66.",
+  "_anchors": "Placement follows the installation points on the developer plan. Positions in metres: living TV/SAT/INT + socket on the partition wall at Y~5.3; living sockets on the west wall at Y~3.5 and ~6.0; kitchen sink water ~Y1.6 and dishwasher socket Y1.84 on the west wall (the 60 cm dishwasher stands in the south run, X2.06-2.66, on a cable run behind the cabinets); hob 400V outlet and hood socket at X1.32 on the south wall (the hob and oven stand at X1.76 with a 25 cm small cabinet between them and the fridge, fed by a cable run behind the base cabinets); a full 60 cm dishwasher stands at the end of the south run, X2.06-2.66, fed from the sink by a water and drain run behind the base cabinets; fridge socket X2.24; bedroom sockets on the east wall at Y~5.25 and ~7.05; bathroom WC frame X5.72, basin Y~1.64, washing machine socket h=70 Y0.66.",
   "_style": "Scandinavian + Japandi: light oak, warm white and greige, linen and boucle textiles, matte black and white details, ceramics and plants.",
   "items": [
     {
@@ -19,14 +19,14 @@
       "room": "kitchen",
       "cat": "kitchen",
       "label": "Hob + oven",
-      "footprint": [1.21, 2.83, 0.0, 0.6],
+      "footprint": [1.21, 2.66, 0.0, 0.6],
       "z": [0, 0.9],
       "facing": "+y",
       "source": "proc:kitchen_run",
       "params": {
-        "hob_at": 1.61,
+        "hob_at": 1.76,
         "oven_under_hob": true,
-        "small_door": [2.53, 2.83]
+        "dishwasher": [2.06, 2.66]
       }
     },
     {
@@ -45,11 +45,11 @@
       "room": "kitchen",
       "cat": "kitchen_upper",
       "label": "",
-      "footprint": [1.21, 2.83, 0.0, 0.35],
+      "footprint": [1.21, 2.66, 0.0, 0.35],
       "z": [1.5, 2.85],
       "facing": "+y",
       "source": "proc:upper_run",
-      "params": { "hood_at": 1.61 }
+      "params": { "hood_at": 1.76 }
     },
     {
       "id": "kitchen_upper_west",
@@ -73,7 +73,6 @@
       "params": {
         "cabinets_to": 1.4,
         "cabinet_depth": 0.6,
-        "dishwasher": [0.6, 1.2],
         "top_thickness": 0.06,
         "table_height": 0.75,
         "table_material": "oak"
@@ -214,7 +213,7 @@
       "room": "hall",
       "cat": "wall",
       "label": "Oak slat screen",
-      "footprint": [2.835, 2.905, 0.0, 1.041],
+      "footprint": [2.66, 2.73, 0.0, 1.041],
       "z": [0, 2.95],
       "facing": "+x",
       "source": "proc:slat_screen",
@@ -222,7 +221,6 @@
         "material": "oak",
         "slat_width": 0.04,
         "gap": 0.03,
-        "solid_end": 0.12,
         "remove": ["O_entrance_arch_out_a"]
       }
     },

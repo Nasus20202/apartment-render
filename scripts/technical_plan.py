@@ -537,10 +537,9 @@ def fixtures(sh, f):
     fx0, fx1, fy0, fy1 = f["fridge"]
     seg(sh, fx0, fy0, fx1, fy1)
     seg(sh, fx0, fy1, fx1, fy0)
-    dw = it["peninsula"]["params"]["dishwasher"]
-    py0 = f["peninsula"][2]
-    sh.box(dw[0], dw[1], py0 + 0.02, py0 + 0.6, lw=0.35, ls=(0, (3, 2)), z=7)
-    seg(sh, dw[0], py0 + 0.02, dw[1], py0 + 0.6, lw=0.25, ls=(0, (3, 2)))
+    dw = it["kitchen_base_south"]["params"]["dishwasher"]
+    sh.box(dw[0], dw[1], 0.02, 0.58, lw=0.35, ls=(0, (3, 2)), z=7)
+    seg(sh, dw[0], 0.02, dw[1], 0.58, lw=0.25, ls=(0, (3, 2)))
     wx0, wx1, wy0, wy1 = f["wc"]
     sh.box(wx0, wx1, wy0, wy0 + 0.17, fc="white", lw=0.35, z=7)
     ell(sh, (wx0 + wx1) / 2, wy0 + 0.17 + 0.18, wx1 - wx0 - 0.04, 0.36)

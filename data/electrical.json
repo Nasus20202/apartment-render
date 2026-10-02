@@ -54,7 +54,7 @@
       "h": 0.3,
       "h_assumed": true,
       "source": "plan",
-      "note": "Dishwasher, own circuit"
+      "note": "Dishwasher, own circuit. The dishwasher itself stands in the south run (X 2.06-2.66), so its cable runs behind the base cabinets from this outlet"
     },
     {
       "id": "K3",
@@ -65,7 +65,7 @@
       "h": 0.3,
       "h_assumed": true,
       "source": "plan",
-      "note": "Hob, 400 V"
+      "note": "Hob, 400 V. The hob and oven stand at X 1.76 (a 25 cm small cabinet between them and the fridge), so the cable runs behind the base cabinets from this outlet"
     },
     {
       "id": "K4",
@@ -76,7 +76,7 @@
       "h": 2.0,
       "h_assumed": false,
       "source": "plan",
-      "note": "Cooker hood socket, h 2.00 m"
+      "note": "Cooker hood socket, h 2.00 m. The hood sits over the hob at X 1.76; the cable runs inside the wall cabinets"
     },
     {
       "id": "K5",
@@ -120,7 +120,8 @@
       "h": 1.1,
       "h_assumed": false,
       "source": "plan",
-      "note": "Light switches A and B, h 1.10 m, 15 cm from the entrance opening. Conflict with the kitchen run: move onto the slat screen post (see docs/flat.md)"
+      "model": { "at": [2.82, 0.0] },
+      "note": "Light switches A and B, h 1.10 m, 15 cm from the entrance opening on the plan. The model sets them 8 cm from the opening (X 2.82), so the kitchen run and the slat screen can stay further east"
     },
     {
       "id": "H2",
@@ -131,7 +132,8 @@
       "h": 1.6,
       "h_assumed": false,
       "source": "plan",
-      "note": "Intercom, h 1.60 m"
+      "model": { "at": [2.82, 0.0] },
+      "note": "Intercom, h 1.60 m, above the light switches (the model moves it to X 2.82 with them)"
     },
     {
       "id": "B1",

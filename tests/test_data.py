@@ -115,6 +115,15 @@ def test_electrical_points(electrical):
             assert p.get("note") or p.get("source"), p["id"]
 
 
+def test_electrical_model_overrides(electrical):
+    """A point set off its plan position in the model must say why."""
+    for p in electrical["points"]:
+        m = p.get("model")
+        if m:
+            assert len(m["at"]) == 2, p["id"]
+            assert p.get("note"), f"{p['id']} is moved off the plan without a note"
+
+
 def test_cameras(floorplan):
     cams = load("cameras")["cameras"]
     for name, c in cams.items():
