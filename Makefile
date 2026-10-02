@@ -1,7 +1,7 @@
 BLENDER ?= blender
 SAMPLES ?= 512
 
-.PHONY: all shell verify layout assets interior render preview evening tiles lint fmt
+.PHONY: all shell verify layout assets interior render preview evening tiles technical lint fmt test
 
 all: shell layout assets interior render
 
@@ -37,11 +37,17 @@ preview:  ## Fast half-size previews -> renders/preview/
 tiles:    ## Debug: plot PDF vectors on a point grid, e.g. make tiles ARGS="t.png,335,600,170,300"
 	uv run -q python scripts/plan_tiles.py $(ARGS)
 
+technical: ## Dimensioned A3 technical plan, 3 sheets -> renders/technical_plan.pdf (+ PNGs)
+	uv run -q python scripts/technical_plan.py
+
 lint:     ## Ruff lint + format check
-	uv run ruff check scripts
-	uv run ruff format --check scripts
+	uv run ruff check scripts tests
+	uv run ruff format --check scripts tests
+
+test:     ## Unit tests: data schemas, clearances, helpers (no Blender needed)
+	uv run pytest -q
 
 fmt:      ## Auto-fix lint issues and format
-	uv run ruff check --fix scripts
-	uv run ruff format scripts
+	uv run ruff check --fix scripts tests
+	uv run ruff format scripts tests
 	npx --yes prettier --write .

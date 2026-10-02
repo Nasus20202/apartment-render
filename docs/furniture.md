@@ -2,12 +2,13 @@
 
 All the furnishing is data. The scripts read four files, and the model is rebuilt from scratch on every `make interior`:
 
-| File                  | What it holds                                                                                               |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `data/furniture.json` | Every built-in and piece of furniture: footprint, height, facing, and the generator or asset that builds it |
-| `data/decor.json`     | Small objects placed by their base point: plants, vases, books, lamps                                       |
-| `data/lighting.json`  | Ceiling fixtures, hung on the developer's light outlets                                                     |
-| `data/cameras.json`   | Viewpoints for the renders                                                                                  |
+| File                   | What it holds                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `data/furniture.json`  | Every built-in and piece of furniture: footprint, height, facing, and the generator or asset that builds it |
+| `data/decor.json`      | Small objects placed by their base point: plants, vases, books, lamps                                       |
+| `data/lighting.json`   | Ceiling fixtures, hung on the developer's light outlets                                                     |
+| `data/electrical.json` | Wall sockets, switches, data and water points (technical plan only; the 3D model doesn't use it)            |
+| `data/cameras.json`    | Viewpoints for the renders                                                                                  |
 
 Coordinates are metres in the Blender frame (see [flat.md](flat.md#scale-and-coordinates)): origin at the inner south-west corner of the living room, +X right, +Y up the plan, Z up from the finished floor.
 

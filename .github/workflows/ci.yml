@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+          cache-python: true
+      - name: Install dependencies (uv fetches the Python pinned in .python-version)
+        run: uv sync --locked
+      - name: Lint
+        run: uv run ruff check scripts tests
+      - name: Format check
+        run: uv run ruff format --check --diff scripts tests
+      - name: Test
+        run: make test

@@ -11,7 +11,10 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["ruff"]
+dev = [
+    "pytest>=9.1.1",
+    "ruff",
+]
 
 [tool.ruff]
 line-length = 100
@@ -20,3 +23,8 @@ extend-exclude = ["assets"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
 ignore = ["E501", "B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
+addopts = "-ra"

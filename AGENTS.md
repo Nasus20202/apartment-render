@@ -11,7 +11,7 @@ This is a photoreal, dimensionally accurate Blender model of a real flat, built 
 1. **The floor plan is the source of truth.** `references/floor-plan.pdf` has no printed dimensions, so lengths come from its vectors at 56.68 pt/m (`data/floorplan.json`). Never invent a dimension silently. Anything not measured from the plan or confirmed by the owner gets `"assumed": true` and a `note` in `floorplan.json`, or a note in the item, and goes into your report to the owner.
 2. **Change the data, not the .blend.** Positions, sizes and choices belong in `data/*.json`; new kinds of objects belong in a generator in `scripts/furniture.py`. Rebuild with `make interior`. Hand edits to `blender/apartment.blend` are lost on the next build.
 3. **Respect the installation plan.** Lights hang on the developer's outlets (`fixtures_reference.light_outlets`, via `data/lighting.json`). Sinks, the WC and the washing machine sit on their water and drain points, and the media wall sits on the TV/SAT socket. If a design moves something off its point, say so in a `note` and in your report (for example, the dining pendants need a cable from outlet B).
-4. **Keep clearances.** After moving footprints, run `make layout`. Every line of the clearance report must say `OK`. Add a check to `report_clearances()` in `scripts/build_layout.py` for each new constraint you introduce.
+4. **Keep clearances.** After moving footprints, run `make layout`. Every line of the clearance report must say `OK`. Add a check to `clearance_checks()` in `scripts/clearances.py` for each new constraint you introduce; `make test` also fails on any `LOW` line.
 5. **Check renders before claiming a result.** Render the affected views (one process per view, see below), look at them, and fix what is wrong. Typical faults: floating objects (use `settle()` for soft things), objects inside walls, black patches from coplanar overlapping boxes, lamps not lined up with their fixtures.
 6. **Report honestly.** List what changed, every assumption you made, and anything you could not verify or render.
 
@@ -33,7 +33,7 @@ This is a photoreal, dimensionally accurate Blender model of a real flat, built 
 
 ## Before you commit
 
-- `make lint` is clean.
+- `make lint` is clean and `make test` passes (no Blender needed; CI runs both on every push and pull request).
 - `make layout` reports all `OK`.
 - `make interior` builds without a traceback, and the views you touched were rendered and checked.
 - The docs still describe the code: update `docs/furniture.md` for new generators or parameters, and `docs/flat.md` for new measurements or confirmed heights.
