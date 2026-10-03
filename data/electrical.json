@@ -10,7 +10,7 @@
       "h": 0.3,
       "h_assumed": true,
       "source": "plan",
-      "note": "West wall, behind the sideboard"
+      "note": "West wall, behind the chaise"
     },
     {
       "id": "S2",
@@ -21,7 +21,7 @@
       "h": 0.3,
       "h_assumed": true,
       "source": "plan",
-      "note": "West wall, by the sofa"
+      "note": "West wall, in the north-west corner beside the floor lamp (the sofa ends at Y 5.75); the plate is hidden behind the lamp base"
     },
     {
       "id": "TV",
@@ -120,8 +120,8 @@
       "h": 1.1,
       "h_assumed": false,
       "source": "plan",
-      "model": { "at": [2.82, 0.0] },
-      "note": "Light switches A and B, h 1.10 m, 15 cm from the entrance opening on the plan. The model sets them 8 cm from the opening (X 2.82), so the kitchen run and the slat screen can stay further east"
+      "model": { "at": [2.78, 0.0] },
+      "note": "Light switches A and B, h 1.10 m, 15 cm from the entrance opening on the plan. The model sets them at X 2.78, clear of the 7 cm architrave (X 2.834-2.904) and the slat screen (X 2.73)"
     },
     {
       "id": "H2",
@@ -132,8 +132,8 @@
       "h": 1.6,
       "h_assumed": false,
       "source": "plan",
-      "model": { "at": [2.82, 0.0] },
-      "note": "Intercom, h 1.60 m, above the light switches (the model moves it to X 2.82 with them)"
+      "model": { "at": [2.78, 0.0] },
+      "note": "Intercom, h 1.60 m, above the light switches (the model moves it to X 2.78 with them)"
     },
     {
       "id": "B1",
