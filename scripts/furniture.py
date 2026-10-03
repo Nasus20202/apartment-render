@@ -891,41 +891,63 @@ def office_chair(item, root):
 
 
 def sofa(item, root):
+    """Sofa along the back (y = d) with an optional chaise on one end. body_depth is the seat depth of the
+    main body (default: the whole item); chaise_w is the chaise's width along the wall and chaise_end
+    ("south", the low-x end, or "north") says where it is. The chaise runs the whole depth d, so the item's
+    depth includes it."""
     w, d = frame_dims(item)
+    p = item.get("params", {})
     n = item["id"]
-    fabric = M[item.get("params", {}).get("fabric", "sofa_fabric")]
+    fabric = M[p.get("fabric", "sofa_fabric")]
+    ds = p.get("body_depth", d)
+    yo = (
+        d - ds
+    )  # the main body starts yo behind the front; the chaise fills the strip in front of it
+    cw = p.get("chaise_w", 0.0)
+    north = p.get("chaise_end", "south") == "north"
     arm_w, leg_h = 0.16, 0.08
     base_top = 0.36
-    for i, x in enumerate((0.06, w - 0.06)):
-        for j, y in enumerate((0.08, d - 0.08)):
-            cyl(f"{n}_leg{i}{j}", x, y, 0, leg_h + 0.01, 0.022, M["oak"], root, r_top=0.018)
-    base = box(n + "_base", 0.0, w, 0.02, d, leg_h, base_top, fabric, root)
-    soften(base, 0.03, 1)
-    for i, (a, b) in enumerate(((0.0, arm_w), (w - arm_w, w))):
-        arm = box(f"{n}_arm{i}", a, b, 0.0, d, leg_h, 0.62, fabric, root)
-        soften(arm, 0.05, 2)
-    back = box(
-        n + "_backframe",
-        arm_w,
-        w - arm_w,
-        d - 0.18,
-        d,
-        base_top - 0.02,
-        0.62,
-        fabric,
-        root,
+
+    def mx(a, b):
+        """x range on the chaise end of the item (a, b measured from that end)."""
+        return (w - b, w - a) if north else (a, b)
+
+    legs = [(0.06, yo + 0.08), (w - 0.06, yo + 0.08), (0.06, d - 0.08), (w - 0.06, d - 0.08)]
+    if cw:
+        legs += [(w - 0.06 if north else 0.06, 0.08), (w - cw + 0.06 if north else cw - 0.06, 0.08)]
+    for i, (x, y) in enumerate(legs):
+        cyl(f"{n}_leg{i}", x, y, 0, leg_h + 0.01, 0.022, M["oak"], root, r_top=0.018)
+    soften(box(n + "_base", 0.0, w, yo + 0.02, d, leg_h, base_top, fabric, root), 0.03, 1)
+    if cw:  # the arm on the chaise end is dropped
+        arms = [(0.0, arm_w)] if north else [(w - arm_w, w)]
+    else:
+        arms = [(0.0, arm_w), (w - arm_w, w)]
+    for i, (a, b) in enumerate(arms):
+        soften(box(f"{n}_arm{i}", a, b, yo, d, leg_h, 0.62, fabric, root), 0.05, 2)
+    sx0, sx1 = (arm_w, w - (cw or arm_w)) if north else (cw or arm_w, w - arm_w)
+    if cw:
+        a, b = mx(0.0, cw)
+        soften(
+            box(n + "_chaise_base", a, b, 0.0, yo + 0.02, leg_h, base_top, fabric, root), 0.03, 1
+        )
+        a, b = mx(0.004, cw - 0.004)
+        ch = box(n + "_chaise", a, b, 0.0, d - 0.17, base_top - 0.01, base_top + 0.15, fabric, root)
+        soften(ch, 0.05, 2)
+        ch.modifiers.new("Puff", "CAST").factor = 0.08
+    bx0, bx1 = (arm_w, w) if (north and cw) else (0.0 if cw else arm_w, w - arm_w)
+    soften(
+        box(n + "_backframe", bx0, bx1, d - 0.18, d, base_top - 0.02, 0.62, fabric, root), 0.04, 2
     )
-    soften(back, 0.04, 2)
-    inner = w - 2 * arm_w
-    k = 2
+    inner = sx1 - sx0
+    k = max(2, round(inner / 0.8))
     for i in range(k):
-        a = arm_w + inner * i / k + 0.004
-        b = arm_w + inner * (i + 1) / k - 0.004
+        a = sx0 + inner * i / k + 0.004
+        b = sx0 + inner * (i + 1) / k - 0.004
         s = box(
             f"{n}_seat{i}",
             a,
             b,
-            0.02,
+            yo + 0.02,
             d - 0.17,
             base_top - 0.01,
             base_top + 0.15,
@@ -945,19 +967,19 @@ def sofa(item, root):
         )
         soften(bc, 0.07, 2)
         bc.rotation_euler.x = math.radians(-9)
-    # Throw pillows and a draped throw over the right arm
+    # Throw pillows and a draped throw over the arm
     for i, (x, mat, ang) in enumerate(
-        ((arm_w + 0.28, M["sofa_fabric"], 12), (w - arm_w - 0.30, M["linen"], -10))
+        ((sx0 + 0.28, M["sofa_fabric"], 12), (sx1 - 0.30, M["linen"], -10))
     ):
-        p = pillow(f"{n}_pillow{i}", 0.46, 0.46, 0.14, mat, root)
-        p.location = (x, d - 0.47, base_top + 0.38)
-        p.rotation_euler = (math.radians(-20), math.radians(ang), 0)
-        settle(p, base_top + 0.15, sink=0.025)
+        pl = pillow(f"{n}_pillow{i}", 0.46, 0.46, 0.14, mat, root)
+        pl.location = (x, d - 0.47, base_top + 0.38)
+        pl.rotation_euler = (math.radians(-20), math.radians(ang), 0)
+        settle(pl, base_top + 0.15, sink=0.025)
     throw = drape(
         n + "_throw",
         0.0,
         arm_w,
-        0.10,
+        yo + 0.10,
         d - 0.25,
         0.625,
         M["linen_green"],
@@ -966,7 +988,7 @@ def sofa(item, root):
         over_y=(0.0, 0.0),
         thickness=0.012,
     )
-    throw.location.x = w - arm_w
+    throw.location.x = 0.0 if north else w - arm_w
 
 
 def pillow(name, sx, sy, thick, mat, parent):
@@ -1062,6 +1084,7 @@ def drape(
 
 def ottoman(item, root):
     w, d = frame_dims(item)
+    mat = M[item.get("params", {}).get("material", "boucle")]
     if item.get("params", {}).get("round"):
         # Drum pouf: a soft cylinder with a rounded top edge
         o = cyl(
@@ -1071,13 +1094,13 @@ def ottoman(item, root):
             0.0,
             item["z"][1],
             min(w, d) / 2,
-            M["boucle"],
+            mat,
             root,
             segs=64,
         )
         bevel(o, 0.06, 4, angle=60)
         return
-    o = box(item["id"] + "_body", 0, w, 0, d, 0.0, item["z"][1], M["boucle"], root)
+    o = box(item["id"] + "_body", 0, w, 0, d, 0.0, item["z"][1], mat, root)
     soften(o, 0.07, 2)
     o.modifiers.new("Puff", "CAST").factor = 0.06
 
@@ -1177,7 +1200,7 @@ def media_wall(item, root):
         box(tn + "_carcass", a + sh, b - sh, 0.02, d, 0.06, 0.90, M["oak"], root)
         _slat_doors(tn, a + sh, b - sh, 0.06, 0.90, 1, root)
         box(tn + "_back", a + sh, b - sh, d - back, d, 0.90, top - 0.025, M["paint_green"], root)
-        for j, z in enumerate((0.90, 1.35, 1.80)):
+        for j, z in enumerate(z for z in (0.90, 1.35, 1.80, 2.25, 2.70) if z < top - 0.2):
             box(
                 f"{tn}_shelf{j}",
                 a + sh,

@@ -561,8 +561,17 @@ def fixtures(sh, f):
     seg(sh, b0 + 0.55, y0, b0 + 0.55, y1, lw=0.3)
     # sofa: back rest and seat split
     s0, s1, sy0, sy1 = f["sofa"]
+    sp = it["sofa"].get("params", {})
+    body = s0 + sp.get("body_depth", s1 - s0)  # front of the main body; a chaise runs on beyond it
+    cw = sp.get("chaise_w", 0.0)
     seg(sh, s0 + 0.25, sy0, s0 + 0.25, sy1, lw=0.3)
-    seg(sh, s0 + 0.25, (sy0 + sy1) / 2, s1, (sy0 + sy1) / 2, lw=0.3)
+    north = sp.get("chaise_end", "south") == "north"
+    by0, by1 = (sy0, sy1 - cw) if north else (sy0 + cw, sy1)  # the main body's span along the wall
+    seg(sh, s0 + 0.25, (by0 + by1) / 2, body, (by0 + by1) / 2, lw=0.3)
+    if cw:
+        cy = by1 if north else by0  # where the chaise meets the body
+        seg(sh, body, sy0, body, by0, lw=0.3) if north else seg(sh, body, by1, body, sy1, lw=0.3)
+        seg(sh, body, cy, s1, cy, lw=0.3)
     # TV wall: screen
     t0, t1, ty0, ty1 = f["tv"]
     seg(sh, (t0 + t1) / 2, ty0, (t0 + t1) / 2, ty1, lw=1.1)
@@ -711,7 +720,10 @@ def sheet_fitout():
     sh.chain([f["bed"][3], f["desk"][2]], 5.1, False, ref=4.9, size=5)
     sh.chain([f["bed_wardrobe"][3], f["bed"][2]], 6.2, False, ref=6.0, size=5)
     sh.chain([4.153, f["bed"][0]], 5.25, ref=5.0, size=5)
-    sh.chain([f["sofa"][1], f["tv"][0]], 4.0, ref=4.1, size=5)
+    sofa_front = f["sofa"][0] + next(i for i in FURN["items"] if i["id"] == "sofa")["params"].get(
+        "body_depth", f["sofa"][1] - f["sofa"][0]
+    )
+    sh.chain([sofa_front, f["tv"][0]], 4.0, ref=4.1, size=5)
     sh.chain([f["wc"][1], f["bath_counter"][0]], 0.55, ref=0.4, size=5)
 
     sh.title_block("FIT-OUT PLAN · FURNITURE AND CLEARANCES", 2)

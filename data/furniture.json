@@ -123,8 +123,8 @@
       "id": "sofa",
       "room": "living",
       "cat": "seat",
-      "label": "Sofa 190",
-      "footprint": [0.0, 0.95, 4.1, 6.0],
+      "label": "Sofa 255",
+      "footprint": [0.0, 0.95, 3.2, 5.75],
       "z": [0, 0.8],
       "facing": "+x",
       "source": "proc:sofa",
@@ -135,18 +135,18 @@
       "room": "living",
       "cat": "seat",
       "label": "Round footrest",
-      "footprint": [1.1, 1.7, 4.85, 5.45],
+      "footprint": [1.1, 1.7, 4.3, 4.9],
       "z": [0, 0.42],
       "facing": "-x",
       "source": "proc:ottoman",
-      "params": { "round": true }
+      "params": { "round": true, "material": "velvet_green" }
     },
     {
       "id": "rug_living",
       "room": "living",
       "cat": "rug",
       "label": "",
-      "footprint": [0.85, 2.65, 4.0, 5.9],
+      "footprint": [0.85, 2.65, 3.3, 5.75],
       "z": [0, 0.012],
       "facing": "+x",
       "source": "proc:rug"
@@ -156,14 +156,14 @@
       "room": "living",
       "cat": "storage",
       "label": "Media wall",
-      "footprint": [3.65, 4.05, 3.6, 6.0],
-      "z": [0, 2.2],
+      "footprint": [3.73, 4.05, 3.6, 6.0],
+      "z": [0, 2.95],
       "facing": "-x",
       "source": "proc:media_wall",
       "params": {
         "tower_width": 0.4,
         "console_z": [0.2, 0.55],
-        "bridge_z0": 1.9
+        "bridge_z0": 2.05
       }
     },
     {
@@ -177,33 +177,32 @@
       "source": "proc:tv"
     },
     {
-      "id": "plant_living",
+      "id": "floor_lamp_living",
       "room": "living",
       "cat": "decor",
-      "label": "",
-      "footprint": [0.98, 1.38, 5.85, 6.25],
-      "z": [0, 1.35],
+      "label": "Floor lamp",
+      "footprint": [0.06, 0.38, 5.76, 6.08],
+      "z": [0, 1.55],
       "facing": "-y",
-      "source": "polyhaven:potted_plant_01"
+      "source": "proc:floor_lamp"
     },
     {
-      "id": "sideboard",
-      "room": "living",
-      "cat": "storage",
-      "label": "Sideboard",
-      "footprint": [0.0, 0.45, 3.02, 4.02],
-      "z": [0, 0.8],
-      "facing": "+x",
-      "source": "proc:tv_console",
-      "params": { "doors": 2 }
-    },
-    {
-      "id": "sideboard_shelf",
+      "id": "sofa_shelf_long",
       "room": "living",
       "cat": "storage",
       "label": "",
-      "footprint": [0.0, 0.24, 3.17, 3.87],
-      "z": [1.42, 1.45],
+      "footprint": [0.0, 0.25, 4.45, 5.65],
+      "z": [1.8, 1.83],
+      "facing": "+x",
+      "source": "proc:floating_shelf"
+    },
+    {
+      "id": "sofa_shelf_short",
+      "room": "living",
+      "cat": "storage",
+      "label": "",
+      "footprint": [0.0, 0.22, 3.85, 4.75],
+      "z": [2.15, 2.18],
       "facing": "+x",
       "source": "proc:floating_shelf"
     },
@@ -221,7 +220,7 @@
         "material": "oak",
         "slat_width": 0.04,
         "gap": 0.03,
-        "remove": ["O_entrance_arch_out_a"]
+        "remove": []
       }
     },
     {
