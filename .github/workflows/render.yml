@@ -161,7 +161,14 @@ jobs:
           for v in $(python3 scripts/ci_matrix.py --views); do
             convert "images/$v.png" -sampling-factor 4:4:4 -quality 92 "images/$v.jpg"
           done
-          files=(images/*.png images/*.jpg images/*.pdf)
+          # Zips for downloading everything at once: all views as PNG, all views as JPG, and the plans
+          views=$(python3 scripts/ci_matrix.py --views)
+          (cd images && zip -q ../renders-png.zip $(for v in $views; do echo "$v.png"; done))
+          (cd images && zip -q ../renders-jpg.zip $(for v in $views; do echo "$v.jpg"; done))
+          plans=$(cd images && ls *.png *.pdf | grep -vxF -f <(for v in $views; do echo "$v.png"; echo "$v.jpg"; done))
+          (cd images && zip -q ../plans.zip $plans)
+          unzip -l plans.zip
+          files=(images/*.png images/*.jpg images/*.pdf renders-png.zip renders-jpg.zip plans.zip)
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "${files[@]}" --clobber
             gh release edit "$TAG" --notes-file notes.md
