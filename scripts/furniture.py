@@ -820,7 +820,7 @@ def dining_chair(item, root, cushion=False):
     tube_path(n + "_toprail", pts, 0.022, M["oak"], root).data.bevel_resolution = 4
     tube_path(
         n + "_backslat",
-        [(cx, oy + cd - 0.035, seat_z + 0.02), (cx, oy + cd - 0.03, 0.74)],
+        [(cx, oy + cd - 0.035, seat_z + 0.02), (cx, cy + r, 0.76)],
         0.012,
         M["oak"],
         root,
@@ -1375,7 +1375,8 @@ def table_lamp(name, x, y, z, parent):
 
 def wardrobe(item, root):
     """Built-in wardrobe, hinged or sliding doors. Taller than 2.45 m it gets a row of top-box doors above
-    split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling."""
+    split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling.
+    Sliding doors are oak, or full-height mirror glass with `mirror`."""
     w, d = frame_dims(item)
     p = item.get("params", {})
     n = item["id"]
@@ -1386,9 +1387,12 @@ def wardrobe(item, root):
     if CEIL - top > 0.005:
         box(n + "_filler", 0, w, 0.04, d, top, CEIL, W, root)
     split = p.get("split_z", 2.25) if top > 2.45 else top
+    if p.get("sliding") and p.get("mirror"):
+        split = top  # mirror fronts run the full height, no top boxes
     k = p.get("doors", 2)
     if p.get("sliding"):
         half = w / 2 + 0.02
+        door = M["mirror"] if p.get("mirror") else M["oak"]
         box(n + "_track", 0, w, 0.0, 0.05, split - 0.04, split, W, root)
         box(
             n + "_slide_back",
@@ -1398,7 +1402,7 @@ def wardrobe(item, root):
             0.045,
             0.065,
             split - 0.045,
-            M["oak"],
+            door,
             root,
             bev=0.002,
         )
@@ -1410,7 +1414,7 @@ def wardrobe(item, root):
             0.019,
             0.065,
             split - 0.045,
-            M["oak"],
+            door,
             root,
             bev=0.002,
         )

@@ -28,7 +28,7 @@ def clearance_checks(items):
             ((f["footrest"][1] - 1.40) ** 2 + (6.29 - f["footrest"][3]) ** 2) ** 0.5 - 0.84,
             0.0,
         ),
-        ("Sofa -> peninsula edge (Y 3.0)", f["sofa"][2] - 3.0, 0.10),
+        ("Sofa -> peninsula edge", f["sofa"][2] - f["peninsula"][3], 0.10),
         ("Sofa -> footrest", f["footrest"][0] - f["sofa"][1], 0.10),
         (
             "South chairs -> hob run front (pull-out room)",
