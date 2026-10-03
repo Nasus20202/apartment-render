@@ -564,7 +564,7 @@ def library():
     L["plastic_black"] = principled("Plastic_Black", (0.02, 0.02, 0.02), roughness=0.4)
     L["mirror"] = principled("Mirror", (0.95, 0.95, 0.95), roughness=0.0, metallic=1.0)
     L["mirror_smoked"] = principled(
-        "Mirror_Smoked", (0.30, 0.27, 0.25), roughness=0.02, metallic=1.0
+        "Mirror_Smoked", (0.72, 0.69, 0.66), roughness=0.02, metallic=1.0
     )
     L["led"] = emission("LED_Warm", (1.0, 0.82, 0.62), 8.0)
     L["bulb"] = emission("Bulb_Warm", (1.0, 0.78, 0.55), 20.0)

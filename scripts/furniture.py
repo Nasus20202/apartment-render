@@ -1395,7 +1395,7 @@ def table_lamp(name, x, y, z, parent):
 def wardrobe(item, root):
     """Built-in wardrobe, hinged or sliding doors. Taller than 2.45 m it gets a row of top-box doors above
     split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling.
-    Sliding doors are oak, or full-height mirror glass with `mirror` (`"smoked"` for a bronze-grey tint)."""
+    Sliding doors are oak, or full-height mirror glass with `mirror` (`"smoked"` for a faint grey-bronze tint)."""
     w, d = frame_dims(item)
     p = item.get("params", {})
     n = item["id"]
