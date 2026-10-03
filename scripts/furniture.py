@@ -1395,7 +1395,7 @@ def table_lamp(name, x, y, z, parent):
 def wardrobe(item, root):
     """Built-in wardrobe, hinged or sliding doors. Taller than 2.45 m it gets a row of top-box doors above
     split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling.
-    Sliding doors are oak, or full-height mirror glass with `mirror`."""
+    Sliding doors are oak, or full-height mirror glass with `mirror` (`"smoked"` for a bronze-grey tint)."""
     w, d = frame_dims(item)
     p = item.get("params", {})
     n = item["id"]
@@ -1413,7 +1413,9 @@ def wardrobe(item, root):
     k = p.get("doors", 2)
     if p.get("sliding"):
         half = w / 2 + 0.02
-        door = M["mirror"] if p.get("mirror") else M["oak"]
+        door = M["oak"]
+        if p.get("mirror"):
+            door = M["mirror_smoked"] if p["mirror"] == "smoked" else M["mirror"]
         box(n + "_track", 0, w, 0.0, 0.05, split - 0.04, split, W, root)
         box(
             n + "_slide_back",
