@@ -178,13 +178,13 @@
     },
     {
       "asset": "polyhaven:potted_plant_02",
-      "at": [3.94, 3.25, 0.9],
+      "at": [3.94, 3.25, 0.922],
       "rot": 40,
       "scale": 0.5
     },
     {
       "asset": "polyhaven:potted_plant_02",
-      "at": [3.94, 2.85, 1.8],
+      "at": [3.94, 2.85, 1.822],
       "rot": 200,
       "scale": 0.5
     },

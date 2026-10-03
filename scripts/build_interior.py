@@ -481,6 +481,10 @@ _PH_CACHE = {}
 LOD_KEEP = "_LOD1"
 
 
+# Poly Haven models whose lowest vertex is not their resting surface: asset -> suffix of the object that rests
+BASE_FROM = {"potted_plant_02": "_pot"}
+
+
 def ph_instance(asset_id, name, coll):
     """Import a Poly Haven model once, then hand out linked copies. Returns an empty whose children are the
     model, re-centred so the empty sits at the model's base centre, front facing -Y."""
@@ -509,7 +513,19 @@ def ph_instance(asset_id, name, coll):
         pts = [o.matrix_world @ Vector(c) for o in objs if o.type == "MESH" for c in o.bound_box]
         lo = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
         hi = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
-        _PH_CACHE[asset_id] = (objs, Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)), hi - lo)
+        base_z = lo.z
+        if asset_id in BASE_FROM:  # drooping leaves hang below the pot: ground the model on the pot
+            base_z = min(
+                (o.matrix_world @ Vector(c)).z
+                for o in objs
+                if o.type == "MESH" and o.name.endswith(BASE_FROM[asset_id])
+                for c in o.bound_box
+            )
+        _PH_CACHE[asset_id] = (
+            objs,
+            Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, base_z)),
+            hi - lo,
+        )
     objs, base, size = _PH_CACHE[asset_id]
     root = F.empty(name, coll)
     inner = F.empty(name + "_offset", coll)
