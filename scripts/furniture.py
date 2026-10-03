@@ -1383,7 +1383,9 @@ def wardrobe(item, root):
     top = item["z"][1]
     W = M["front_white"]
     box(n + "_plinth", 0, w, 0.04, d - 0.02, 0, 0.06, M["plastic_black"], root)
-    box(n + "_carcass", 0, w, 0.025, d, 0.06, top, W, root)
+    # Sliding fronts run in the gap in front of the carcass
+    cy0 = 0.05 if p.get("sliding") else 0.025
+    box(n + "_carcass", 0, w, cy0, d, 0.06, top, W, root)
     if CEIL - top > 0.005:
         box(n + "_filler", 0, w, 0.04, d, top, CEIL, W, root)
     split = p.get("split_z", 2.25) if top > 2.45 else top
@@ -1418,7 +1420,7 @@ def wardrobe(item, root):
             root,
             bev=0.002,
         )
-        for i, x in enumerate((half - 0.04, w - half + 0.04)):
+        for i, x in enumerate((half - 0.06, w - half + 0.04)):
             box(
                 f"{n}_grip{i}",
                 x - 0.012,
