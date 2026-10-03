@@ -156,7 +156,7 @@
       "room": "living",
       "cat": "storage",
       "label": "Media wall",
-      "footprint": [3.73, 4.05, 3.6, 6.0],
+      "footprint": [3.83, 4.05, 3.6, 6.0],
       "z": [0, 2.95],
       "facing": "-x",
       "source": "proc:media_wall",
@@ -222,6 +222,28 @@
         "gap": 0.03,
         "remove": []
       }
+    },
+    {
+      "id": "tv_unit",
+      "room": "living",
+      "cat": "storage",
+      "label": "See-through unit",
+      "footprint": [3.83, 4.05, 2.3, 3.6],
+      "z": [0, 2.95],
+      "facing": "-x",
+      "source": "proc:open_unit",
+      "params": {
+        "levels": [
+          [0.06, 0.5, "closed"],
+          [0.5, 0.9, "closed"],
+          [0.9, 1.4, "open"],
+          [1.4, 1.8, "closed"],
+          [1.8, 2.25, "open"],
+          [2.25, 2.6, "closed"],
+          [2.6, 2.925, "closed"]
+        ]
+      },
+      "note": "Continues the media wall south along the same line (same depth and top). Two closed levels at the bottom, then an open see-through shelf, a cabinet, another open shelf and closed cabinets up to the top. The open bays have no back."
     },
     {
       "id": "hall_wardrobe",

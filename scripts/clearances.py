@@ -45,6 +45,12 @@ def clearance_checks(items):
         ("Slat screen -> intercom plate (model X 2.74)", 2.74 - f["slat_screen"][1], 0.005),
         ("Intercom plate -> entrance architrave (X 2.834)", 2.834 - 2.82, 0.01),
         ("South run end -> entrance opening (X 2.904)", 2.904 - f["kitchen_base_south"][1], 0.0),
+        (
+            "Dining chairs -> TV unit (walkway)",
+            f["tv_unit"][0] - f["dining_chair_n2"][1],
+            0.90,
+        ),
+        ("TV unit -> media wall (one run)", f["media_wall"][2] - f["tv_unit"][3], 0.0),
         ("Sofa -> TV viewing distance", f["tv"][0] - (f["sofa"][0] + 0.95 / 2), 2.5),
         ("Bed foot -> bedroom west wall", f["bed"][0] - 4.153, 0.70),
         ("Wardrobe (sliding) front -> bed side", f["bed"][2] - f["bed_wardrobe"][3], 0.70),

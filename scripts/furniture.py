@@ -732,6 +732,25 @@ def slat_screen(item, root):
             bpy.data.objects.remove(ob)
 
 
+def open_unit(item, root):
+    """Free-standing oak storage tower that matches the media wall: closed slat-door cabinets and open,
+    see-through shelf bays (no back, so you see across the room) stacked as `levels` [z0, z1, "closed" or
+    "open"], from the plinth to the top. Doors face the front; the closed bays have an oak back."""
+    w, d = frame_dims(item)
+    p = item.get("params", {})
+    n, top = item["id"], item["z"][1]
+    sh, back = 0.019, 0.012
+    box(n + "_plinth", sh, w - sh, 0.05, d - back, 0.0, 0.06, M["plastic_black"], root)
+    box(n + "_sideL", 0, sh, 0.0, d, 0.0, top, M["oak"], root, bev=0.001)
+    box(n + "_sideR", w - sh, w, 0.0, d, 0.0, top, M["oak"], root, bev=0.001)
+    for j, (z0, z1, kind) in enumerate(p["levels"]):
+        box(f"{n}_board{j}", sh, w - sh, 0.0, d - back, z0, z0 + 0.022, M["oak"], root, bev=0.001)
+        if kind == "closed":
+            box(f"{n}_back{j}", sh, w - sh, d - back, d, z0, z1, M["oak"], root)
+            _slat_doors(f"{n}_c{j}", sh, w - sh, z0, z1, max(1, round(w / 0.6)), root)
+    box(n + "_top", 0, w, 0.0, d, top - 0.025, top, M["oak"], root, bev=0.002)
+
+
 def counter_stool(item, root):
     """Japandi counter stool: round oak seat with a linen pad, splayed legs, footrest ring."""
     W, D = frame_dims(item)
@@ -2390,6 +2409,7 @@ GENERATORS = {
     "rug": rug,
     "tv_console": tv_console,
     "media_wall": media_wall,
+    "open_unit": open_unit,
     "bistro_table": bistro_table,
     "bistro_chair": bistro_chair,
     "tv": tv,
