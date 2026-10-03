@@ -169,6 +169,30 @@
       "asset": "polyhaven:hanging_picture_frame_02",
       "at": [0.03, 4.0, 1.3],
       "rot": 90
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [3.94, 2.65, 0.922],
+      "rot": 0,
+      "scale": 0.7
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.94, 3.25, 0.922],
+      "rot": 40,
+      "scale": 0.5
+    },
+    {
+      "asset": "polyhaven:potted_plant_02",
+      "at": [3.94, 2.85, 1.822],
+      "rot": 200,
+      "scale": 0.5
+    },
+    {
+      "asset": "polyhaven:potted_plant_04",
+      "at": [3.94, 3.35, 1.822],
+      "rot": 90,
+      "scale": 0.6
     }
   ]
 }

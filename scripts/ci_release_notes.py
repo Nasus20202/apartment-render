@@ -44,6 +44,7 @@ def notes(rows, samples, sha, wall_seconds):
         "",
         "Each camera view is attached twice: PNG (lossless) and JPG (quality 92, smaller, used by the README).",
         "Also attached: the technical plan (PDF and PNGs), the furnished plan, the layout proposal and the shell overviews.",
+        "Zips: `renders-png.zip` (all camera views, lossless), `renders-jpg.zip` (all camera views, JPG) and `plans.zip` (the plans above).",
     ]
     return "\n".join(lines) + "\n"
 

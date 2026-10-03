@@ -17,7 +17,7 @@ def test_evening_skips_the_listed_views():
     cfg = load("cameras")
     evening = ci_matrix.evening_cams(cfg)
     assert not set(cfg["evening_skip"]) & set(evening)
-    assert "bathroom_shower" in cfg["cameras"] and "kitchen_u" in evening
+    assert "bathroom_shower" in cfg["cameras"] and "kitchen_island" in evening
 
 
 def test_view_names_have_no_plan():

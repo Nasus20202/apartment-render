@@ -732,6 +732,25 @@ def slat_screen(item, root):
             bpy.data.objects.remove(ob)
 
 
+def open_unit(item, root):
+    """Free-standing oak storage tower that matches the media wall: closed slat-door cabinets and open,
+    see-through shelf bays (no back, so you see across the room) stacked as `levels` [z0, z1, "closed" or
+    "open"], from the plinth to the top. Doors face the front; the closed bays have an oak back."""
+    w, d = frame_dims(item)
+    p = item.get("params", {})
+    n, top = item["id"], item["z"][1]
+    sh, back = 0.019, 0.012
+    box(n + "_plinth", sh, w - sh, 0.05, d - back, 0.0, 0.06, M["plastic_black"], root)
+    box(n + "_sideL", 0, sh, 0.0, d, 0.0, top, M["oak"], root, bev=0.001)
+    box(n + "_sideR", w - sh, w, 0.0, d, 0.0, top, M["oak"], root, bev=0.001)
+    for j, (z0, z1, kind) in enumerate(p["levels"]):
+        box(f"{n}_board{j}", sh, w - sh, 0.0, d - back, z0, z0 + 0.022, M["oak"], root, bev=0.001)
+        if kind == "closed":
+            box(f"{n}_back{j}", sh, w - sh, d - back, d, z0, z1, M["oak"], root)
+            _slat_doors(f"{n}_c{j}", sh, w - sh, z0, z1, max(1, round(w / 0.6)), root)
+    box(n + "_top", 0, w, 0.0, d, top - 0.025, top, M["oak"], root, bev=0.002)
+
+
 def counter_stool(item, root):
     """Japandi counter stool: round oak seat with a linen pad, splayed legs, footrest ring."""
     W, D = frame_dims(item)
@@ -820,7 +839,7 @@ def dining_chair(item, root, cushion=False):
     tube_path(n + "_toprail", pts, 0.022, M["oak"], root).data.bevel_resolution = 4
     tube_path(
         n + "_backslat",
-        [(cx, oy + cd - 0.035, seat_z + 0.02), (cx, oy + cd - 0.03, 0.74)],
+        [(cx, oy + cd - 0.035, seat_z + 0.02), (cx, cy + r, 0.76)],
         0.012,
         M["oak"],
         root,
@@ -1375,20 +1394,28 @@ def table_lamp(name, x, y, z, parent):
 
 def wardrobe(item, root):
     """Built-in wardrobe, hinged or sliding doors. Taller than 2.45 m it gets a row of top-box doors above
-    split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling."""
+    split_z, as built-ins do when they run up to a high ceiling; a filler closes any gap to the ceiling.
+    Sliding doors are oak, or full-height mirror glass with `mirror` (`"smoked"` for a faint grey-bronze tint)."""
     w, d = frame_dims(item)
     p = item.get("params", {})
     n = item["id"]
     top = item["z"][1]
     W = M["front_white"]
     box(n + "_plinth", 0, w, 0.04, d - 0.02, 0, 0.06, M["plastic_black"], root)
-    box(n + "_carcass", 0, w, 0.025, d, 0.06, top, W, root)
+    # Sliding fronts run in the gap in front of the carcass
+    cy0 = 0.05 if p.get("sliding") else 0.025
+    box(n + "_carcass", 0, w, cy0, d, 0.06, top, W, root)
     if CEIL - top > 0.005:
         box(n + "_filler", 0, w, 0.04, d, top, CEIL, W, root)
     split = p.get("split_z", 2.25) if top > 2.45 else top
+    if p.get("sliding") and p.get("mirror"):
+        split = top  # mirror fronts run the full height, no top boxes
     k = p.get("doors", 2)
     if p.get("sliding"):
         half = w / 2 + 0.02
+        door = M["oak"]
+        if p.get("mirror"):
+            door = M["mirror_smoked"] if p["mirror"] == "smoked" else M["mirror"]
         box(n + "_track", 0, w, 0.0, 0.05, split - 0.04, split, W, root)
         box(
             n + "_slide_back",
@@ -1398,7 +1425,7 @@ def wardrobe(item, root):
             0.045,
             0.065,
             split - 0.045,
-            M["oak"],
+            door,
             root,
             bev=0.002,
         )
@@ -1410,11 +1437,11 @@ def wardrobe(item, root):
             0.019,
             0.065,
             split - 0.045,
-            M["oak"],
+            door,
             root,
             bev=0.002,
         )
-        for i, x in enumerate((half - 0.04, w - half + 0.04)):
+        for i, x in enumerate((half - 0.06, w - half + 0.04)):
             box(
                 f"{n}_grip{i}",
                 x - 0.012,
@@ -2384,6 +2411,7 @@ GENERATORS = {
     "rug": rug,
     "tv_console": tv_console,
     "media_wall": media_wall,
+    "open_unit": open_unit,
     "bistro_table": bistro_table,
     "bistro_chair": bistro_chair,
     "tv": tv,

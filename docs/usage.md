@@ -82,7 +82,7 @@ The Makefile starts **one Blender process per view**. On the 8 GB RX 5700, HIP c
 
 `loc` and `target` are world metres. Cameras are kept level and yaw toward the target, so vertical lines stay vertical. Use `shift_y` to frame higher or lower instead of tilting. `lens` is in mm on a 36 mm sensor (16–20 mm suits these rooms). Every day view shares the scene's 3.0 EV, so rooms can be compared fairly (there are no per-view exposures or lamps by day; the lamps are for the evening set). `walk` is for walking around in Blender and is never rendered.
 
-Current views: `living_hero`, `living_tv`, `living_balcony`, `kitchen_island`, `kitchen_u`, `hall_entrance`, `hall_kitchen`, `bedroom_door`, `bedroom_window`, `bedroom_bed`, `bedroom_desk`, `bathroom_shower`, `bathroom_vanity`.
+Current views: `living_hero`, `living_tv`, `living_balcony`, `kitchen_island`, `hall_entrance`, `hall_kitchen`, `bedroom_door`, `bedroom_window`, `bedroom_bed`, `bathroom_shower`, `bathroom_vanity`.
 
 ### Sun and time of day
 
