@@ -114,7 +114,7 @@ jobs:
       - uses: BradyAJohnston/setup-blender@v5.1.0
         with:
           version: ${{ env.BLENDER_VERSION }}
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: true
           cache-python: true
