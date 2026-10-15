@@ -15,7 +15,7 @@ from mathutils import Matrix
 IMAGES = Path(__file__).resolve().parent.parent / "assets" / "images"
 
 M = {}  # material library, set by build_interior.py
-CEIL = 2.95  # ceiling height; build_interior.py sets it from data/floorplan.json
+CEIL = 2.73  # ceiling height; build_interior.py sets it from data/floorplan.json
 
 
 # ---------------------------------------------------------------- primitives
@@ -1967,7 +1967,7 @@ def walkin_shower(item, root):
         coll_parent,
     )
     hx, hy = p.get("head_at", ((x0 + x1) / 2, (y0 + y1) / 2))
-    # Rain head at 2.20 m on a wall arm from the back wall (the ceiling is 2.95 m, too high for a ceiling arm)
+    # Rain head at 2.20 m on a wall arm from the back wall (a wall arm, not a ceiling arm)
     hz = p.get("head_z", 2.20)
     tube_path(
         n + "_arm",
