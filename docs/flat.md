@@ -29,7 +29,7 @@ Heights are in `data/floorplan.json` → `heights_m`. A value marked _assumed_ i
 
 | Height                      | Value                            | Status                                                                                                 |
 | --------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Ceiling (clear room height) | **2.73 m**                       | Set by the owner, 2026-10-15 (was 2.95 m)                                                              |
+| Ceiling (clear room height) | **2.63 m**                       | Set by the owner, 2026-10-15 (was 2.95 m)                                                              |
 | Interior doors              | 0.90 × 2.10 m                    | Plan label 90/210                                                                                      |
 | Entrance door               | 1.05 × 2.20 m                    | Plan label 105/220                                                                                     |
 | Window head                 | 2.20 m                           | **Assumed** (bedroom window and door)                                                                  |

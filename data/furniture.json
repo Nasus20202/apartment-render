@@ -35,7 +35,7 @@
       "cat": "kitchen",
       "label": "Fridge",
       "footprint": [0.61, 1.21, 0.0, 0.6],
-      "z": [0, 2.63],
+      "z": [0, 2.53],
       "facing": "+y",
       "source": "proc:tall_unit",
       "params": { "fridge": true }
@@ -46,7 +46,7 @@
       "cat": "kitchen_upper",
       "label": "",
       "footprint": [1.21, 2.66, 0.0, 0.35],
-      "z": [1.5, 2.63],
+      "z": [1.5, 2.53],
       "facing": "+y",
       "source": "proc:upper_run",
       "params": { "hood_at": 1.76 }
@@ -57,7 +57,7 @@
       "cat": "kitchen_upper",
       "label": "",
       "footprint": [0.0, 0.35, 0.715, 2.1],
-      "z": [1.5, 2.63],
+      "z": [1.5, 2.53],
       "facing": "+x",
       "source": "proc:upper_run"
     },
@@ -157,7 +157,7 @@
       "cat": "storage",
       "label": "Media wall",
       "footprint": [3.83, 4.05, 3.6, 6.0],
-      "z": [0, 2.73],
+      "z": [0, 2.63],
       "facing": "-x",
       "source": "proc:media_wall",
       "params": {
@@ -213,7 +213,7 @@
       "cat": "wall",
       "label": "Oak slat screen",
       "footprint": [2.66, 2.73, 0.0, 1.041],
-      "z": [0, 2.73],
+      "z": [0, 2.63],
       "facing": "+x",
       "source": "proc:slat_screen",
       "params": {
@@ -229,7 +229,7 @@
       "cat": "storage",
       "label": "See-through unit",
       "footprint": [3.83, 4.05, 2.3, 3.6],
-      "z": [0, 2.73],
+      "z": [0, 2.63],
       "facing": "-x",
       "source": "proc:open_unit",
       "params": {
@@ -239,8 +239,8 @@
           [0.9, 1.4, "open"],
           [1.4, 1.8, "closed"],
           [1.8, 2.25, "open"],
-          [2.25, 2.48, "closed"],
-          [2.48, 2.705, "closed"]
+          [2.25, 2.43, "closed"],
+          [2.43, 2.605, "closed"]
         ]
       },
       "note": "Continues the media wall south along the same line (same depth and top). Two closed levels at the bottom, then an open see-through shelf, a cabinet, another open shelf and closed cabinets up to the top. The open bays have no back."
@@ -251,7 +251,7 @@
       "cat": "storage",
       "label": "L wardrobe",
       "footprint": [4.03, 5.155, 0.0, 0.96],
-      "z": [0, 2.63],
+      "z": [0, 2.53],
       "facing": "+y",
       "source": "proc:l_wardrobe",
       "params": {
@@ -278,7 +278,7 @@
       "cat": "storage",
       "label": "Smoked-mirror sliding wardrobe",
       "footprint": [5.15, 6.99, 3.1, 3.7],
-      "z": [0, 2.63],
+      "z": [0, 2.53],
       "facing": "+y",
       "source": "proc:wardrobe",
       "params": { "doors": 2, "sliding": true, "mirror": "smoked", "split_z": 2.25 }
@@ -408,7 +408,7 @@
       "cat": "bath",
       "label": "Rain shower 170x90",
       "footprint": [5.3, 6.99, 2.09, 2.99],
-      "z": [0, 2.65],
+      "z": [0, 2.6],
       "facing": "-y",
       "source": "proc:walkin_shower",
       "params": { "glass_from_x": 6.0, "head_at": [6.15, 2.6], "head_z": 2.2 }
