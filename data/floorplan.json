@@ -14,9 +14,9 @@
   },
   "heights_m": {
     "ceiling": {
-      "value": 2.73,
+      "value": 2.63,
       "assumed": false,
-      "note": "Clear room height, 2.73 m, set by the owner (2026-10-15; was 2.95 m). Not printed on the plan."
+      "note": "Clear room height, 2.63 m, set by the owner (2026-10-15; was 2.95 m). Not printed on the plan."
     },
     "interior_door": {
       "value": 2.1,

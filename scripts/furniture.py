@@ -15,7 +15,7 @@ from mathutils import Matrix
 IMAGES = Path(__file__).resolve().parent.parent / "assets" / "images"
 
 M = {}  # material library, set by build_interior.py
-CEIL = 2.73  # ceiling height; build_interior.py sets it from data/floorplan.json
+CEIL = 2.63  # ceiling height; build_interior.py sets it from data/floorplan.json
 
 
 # ---------------------------------------------------------------- primitives
