@@ -21,7 +21,7 @@ def test_scale_matches_pt_per_m(floorplan):
 
 
 def test_ceiling_height_is_confirmed(floorplan):
-    assert floorplan["heights_m"]["ceiling"]["value"] == 2.95
+    assert floorplan["heights_m"]["ceiling"]["value"] == 2.73
     assert not floorplan["heights_m"]["ceiling"]["assumed"]
 
 

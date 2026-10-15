@@ -14,9 +14,9 @@
   },
   "heights_m": {
     "ceiling": {
-      "value": 2.95,
+      "value": 2.73,
       "assumed": false,
-      "note": "Clear room height, confirmed by the owner (2026-10-02). Not printed on the plan."
+      "note": "Clear room height, 2.73 m, set by the owner (2026-10-15; was 2.95 m). Not printed on the plan."
     },
     "interior_door": {
       "value": 2.1,
@@ -56,7 +56,7 @@
     "floor_above_grade": {
       "value": 6.8,
       "assumed": true,
-      "note": "2nd floor: ground floor raised ~0.3 m plus two storeys of ~3.25 m (2.95 m clear + slab). Not on the plan; only drives the view outside."
+      "note": "2nd floor: ground floor raised ~0.3 m plus two storeys of ~3.25 m (clear height + slab). Not on the plan; only drives the view outside."
     }
   },
   "orientation": {
