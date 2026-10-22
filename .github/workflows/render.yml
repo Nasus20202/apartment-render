@@ -19,7 +19,7 @@ permissions:
 
 env:
   # renovate: datasource=github-tags depName=blender/blender extractVersion=^v(?<version>.+)$
-  BLENDER_VERSION: "5.2.2"
+  BLENDER_VERSION: "5.2.3"
 
 concurrency:
   group: render-${{ inputs.tag }}
