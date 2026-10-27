@@ -32,7 +32,7 @@ jobs:
     outputs:
       jobs: ${{ steps.list.outputs.jobs }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - id: list
         run: echo "jobs=$(python3 scripts/ci_matrix.py)" >> "$GITHUB_OUTPUT"
       - name: Blender runtime libraries
@@ -67,7 +67,7 @@ jobs:
       matrix: ${{ fromJSON(needs.build.outputs.jobs) }}
     name: render ${{ matrix.name }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Blender runtime libraries
         run: |
           sudo apt-get update
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Blender runtime libraries
         run: |
           sudo apt-get update
@@ -140,7 +140,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/download-artifact@v8
         with:
           path: images
