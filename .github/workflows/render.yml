@@ -40,11 +40,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@v5.1.0
+      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
         with:
           version: ${{ env.BLENDER_VERSION }}
       # Saved when this job ends; every render job restores it instead of downloading the assets again
-      - uses: actions/cache@v6
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: assets
           key: assets-${{ hashFiles('data/assets.json') }}
@@ -52,7 +52,7 @@ jobs:
         run: make assets
       - name: Build the scene once for every view
         run: make shell interior
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: scene
           path: blender/apartment.blend
@@ -73,15 +73,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@v5.1.0
+      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
         with:
           version: ${{ env.BLENDER_VERSION }}
-      - uses: actions/cache/restore@v6
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: assets
           key: assets-${{ hashFiles('data/assets.json') }}
           fail-on-cache-miss: true
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: scene
           path: blender
@@ -93,7 +93,7 @@ jobs:
           blender -b blender/apartment.blend --python-exit-code 1 -P scripts/render.py -- "${args[@]}"
           echo "${{ matrix.name }} ${{ matrix.mode }} $((SECONDS - start))" > "renders/ci/${{ matrix.name }}.time"
           ls -l renders/ci
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: ${{ matrix.name }}
           path: |
@@ -111,10 +111,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@v5.1.0
+      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
         with:
           version: ${{ env.BLENDER_VERSION }}
-      - uses: astral-sh/setup-uv@v10.3.2
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           enable-cache: true
           cache-python: true
@@ -127,7 +127,7 @@ jobs:
           cp renders/*.png renders/*.pdf renders/out/
           echo "plans-and-overviews docs $((SECONDS - start))" > renders/out/plans.time
           ls -l renders/out
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: plans
           path: renders/out/*
@@ -141,7 +141,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           path: images
           merge-multiple: true
