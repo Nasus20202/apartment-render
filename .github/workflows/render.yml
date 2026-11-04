@@ -40,7 +40,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
+      - uses: BradyAJohnston/setup-blender@1006ec809db1af1422bd1197e107e2c4d368d81e # v5.2.0
         with:
           version: ${{ env.BLENDER_VERSION }}
       # Saved when this job ends; every render job restores it instead of downloading the assets again
@@ -73,7 +73,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
+      - uses: BradyAJohnston/setup-blender@1006ec809db1af1422bd1197e107e2c4d368d81e # v5.2.0
         with:
           version: ${{ env.BLENDER_VERSION }}
       - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
@@ -111,7 +111,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libegl1 libgl1 libxi6 libxkbcommon0 libxxf86vm1 libxfixes3 libxrender1 libsm6
-      - uses: BradyAJohnston/setup-blender@9d0ba03aa0f7be59e09bdc70e08418a4298185f7 # v5.1.0
+      - uses: BradyAJohnston/setup-blender@1006ec809db1af1422bd1197e107e2c4d368d81e # v5.2.0
         with:
           version: ${{ env.BLENDER_VERSION }}
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
